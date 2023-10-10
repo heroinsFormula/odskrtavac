@@ -13,9 +13,6 @@ body {
 header {
     background-color: gray;
     padding: 5vh;
-    position: relative;
-    display: flex;
-    align-items: center;
 }
 
 header a {
@@ -26,16 +23,21 @@ header a {
     background-color: white;
     border: solid black thin;
     text-align: center;
-    right: 5%;
 }
 header a:hover {background-color: var(--lightgray);}
 
+ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    justify-content: space-between;
+}
+/* dopíče */
+
 
 #login_wrap {
-    transform: translateY(-50%);
-    top: 50%;
-    position: absolute;
-    right: 5%;
+    margin-left: auto;
 }
 
 #login_wrap a {

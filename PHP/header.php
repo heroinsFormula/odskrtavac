@@ -10,7 +10,7 @@
 </head>
 <body>
 <header>
-    <ul style="list-style-type: none;">
+    <ul>
         <li><a href="index.php">seznam děl</a></li>
         <li><a href="#">vlastní seznam</a></li>
         <li><div id="login_wrap">
