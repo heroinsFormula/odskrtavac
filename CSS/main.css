@@ -52,7 +52,7 @@ ul {
 main {
     background-color: rgb(255, 255, 255);
     margin: auto;
-    width: 80%;
+    width: 70%;
     height: 100%;
 }
 
@@ -73,13 +73,14 @@ main {
     font-weight: bold;
     margin-left: 5vw;
     margin-bottom: 0;
-    margin-top: 10vh;
+    margin-top: 5vh;
 }
 
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
+    margin-bottom: 5vh;
 }
   
   td, th {
