@@ -53,18 +53,18 @@ main {
     background-color: rgb(255, 255, 255);
     margin: auto;
     width: 80%;
-    height: 100vh;
+    height: 100%;
 }
 
 .table_wrapper {
     width: 80%;
-    height: 100%;
     margin: auto;
 }
 
 .content {
     position: absolute;
     margin-top: 10vh;
+    height: 100%;
 }
 
 .title {
@@ -77,7 +77,7 @@ table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
-  }
+}
   
   td, th {
     border: 1px solid #dddddd;

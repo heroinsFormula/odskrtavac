@@ -1,0 +1,11 @@
+authors = ["Čapek, K.","Čapek, K.","Drda, J.","Dyk, V.","Olbracht, I.","Páral, V.","Pavel, O.","Šabach, P.","Škvorecký, J.","Šrámek, F.","Vančura, V.","Viewegh, M.","Fuks, L.","Hrabal, B.","Hrabal, B.","Jirotka, Z.","Kafka, F.","Kafka, F.","Kundera, M.","Kundera, M.","Poláček, K.","Asimov, I. robot,","Bradbury, R.","Camus, A.","Capote, T.","Eco, U.","Exupéry, A. de Saint","Franková, A.","Golding, W.","Heller, J.","Hemingway, E.","Christie, A.","Irving, J.","Kerouac, J.","Kesey, K.","King, S.","King, S.","London, J.","Nabokov, V. V.","Orwell, G.","Orwell, G.","Remarque, E. M.","Rolland, R.","Salinger, J. D.","Solženicyn, A.","Steinbeck, J.","Styron, W.","Tolkien, J.R.R.","Wyndham, J.","Moravia, A.","Čech, Sv. tentokráte do XV.století,","Dickens, Ch.","Arbes, J.","Balzac, H.","Hugo, V.","Maupassant, G.","Neruda, J.","Poe, E. A.","Puškin, A. S.","Rais, K. V.","Dostojevskij, F. M.","Nezval, V.","Goethe, J. W.",]
+titles = ["Krakatit", "Válka s mloky", "Němá barikáda", "Krysař", "Nikola Šuhaj loupežník", "Mladý muž a bílá velryba", "Smrt krásných srnců", "Občanský průkaz", "Zbabělci", "Stříbrný vítr", "Rozmarné léto", "Báječná léta pod psa", "Spalovač mrtvol", "Obsluhoval jsem anglického krále", "Ostře sledované vlaky", "Saturnin", "Proces", "Proměna", "Nesnesitelná lehkost bytí", "Směšné lásky", "Bylo nás pět", "Já, robot", "451 stupňů Fahrenheita", "Cizinec", "Chladnokrevně", "Jméno růže", "Malý princ", "Deník Anne Frankové", "Pán much", "Hlava XXII.", "Stařec a moře", "Vražda v Orient expresu", "Svět podle Garpa", "Na cestě", "Vyhoďme ho z kola ven", "Misery", "Osvícení", "Tulák po hvězdách", "Lolita", "1984", "Farma zvířat", "Na západní frontě klid", "Petr a Lucie", "Kdo chytá v žitě", "Jeden den Ivana Děnisoviče", "O myších a lidech", "Sophiina volba", "Společenstvo prstenu", "Den trifidů", "Horalka", "Nový epochální výlet pana Broučka, tentokráte do XV.století", "Nadějné vyhlídky", "Svatý Xaverius", "Otec Goriot", "Chrám Matky Boží v Paříži", "Kulička", "Povídky malostranské", "Jáma a kyvadlo", "Piková dáma", "Kalibův zločin", "Zločin a trest", "Manon Lescaut", "Utrpení mladého Werthera"]
+
+# INSERT INTO TableName
+#   ( Column1, Column2, Column3 )
+# VALUES
+#   ('val_1', 'val_2') 
+#
+
+for i in range(0,len(authors)):
+    print(f"('{authors[i]}','{titles[i]}'), ")
