@@ -59,6 +59,7 @@ main {
 .table_wrapper {
     width: 80%;
     margin: auto;
+    overflow: hidden;
 }
 
 .content {
@@ -71,6 +72,8 @@ main {
     font-size: xx-large;
     font-weight: bold;
     margin-left: 5vw;
+    margin-bottom: 0;
+    margin-top: 10vh;
 }
 
 table {
