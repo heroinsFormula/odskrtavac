@@ -37,9 +37,9 @@ ul {
 
 
 #login_wrap {
-    margin-left: auto;
+    margin-left: auto; 
 }
-
+/* proč to nejde */
 #login_wrap a {
     display: block;
 }
@@ -73,3 +73,18 @@ main {
     margin-left: 5vw;
 }
 
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
