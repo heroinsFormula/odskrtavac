@@ -2,7 +2,6 @@
 session_start();
     $_SESSION;
     include('functions.php');
-    $button = "<td><input type='checkbox' onchange='handleChange(this)'></td>";
 ?>
 
 <?php include_once 'header.php'; ?>
@@ -13,23 +12,27 @@ session_start();
                 <h1 class="title">Próza</h1>
                 <table>
                     <tr>
-                        <th id="test">Autor</th>
+                        <th>ID</th>
+                        <th>Autor</th>
                         <th>Název</th>
                         <th>Rok vydání</th>
                         <th>Původ</th>
                         <th></th>
                     </tr>
                 <?php
+                $button = "<td><input type='checkbox' onchange='handleChange(this)'id=></td>";
                 $query = "SELECT * FROM tituly WHERE literarni_druh='Próza'";
                 $result = mysqli_query($conn,$query);            
 
                 while ($row = mysqli_fetch_assoc($result)) {
+                    $id = $row["book_id"];
                 echo "<tr>";
+                echo "<td>" . $id . "</td>";
                 echo "<td>" . $row["autor"] . "</td>";
                 echo "<td>" . $row["nazev"] . "</td>";
                 echo "<td>" . $row["rok_vydani"] . "</td>";
                 echo "<td>" . $row["puvod"] . "</td>";
-                echo $button;
+                echo "<td><input type='checkbox' onchange='handleChange(this)' id='" . $id . "'></td>";
                 echo "</tr>";                    
                 }
                 ?>
