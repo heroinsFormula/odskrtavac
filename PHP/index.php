@@ -22,7 +22,7 @@ session_start();
                 <?php
                 $button = "<td><input type='checkbox' onchange='handleChange(this)'id=></td>";
                 $query = "SELECT * FROM tituly WHERE literarni_druh='Próza'";
-                $result = mysqli_query($conn,$query);     
+                $result = mysqli_query($conn,$query);
                 while ($row = mysqli_fetch_assoc($result)) {
                     $book_id = $row["book_id"];
                 echo "<tr>";
@@ -31,8 +31,9 @@ session_start();
                 echo "<td>" . $row["nazev"] . "</td>";
                 echo "<td>" . $row["rok_vydani"] . "</td>";
                 echo "<td>" . $row["puvod"] . "</td>";
+                $fetch_read = "SELECT * FROM read_books WHERE user_id = ".$_SESSION['user_id']." AND book_id = ".$book_id.""; // konečnězfhsadfk
                 echo "<td><input type='checkbox' onchange='handleChange(this)' id='" . $book_id . "'";
-                if ("SELECT COUNT (read_id) FROM read_books WHERE user_id == '".$_SESSION['user_id']."' AND book_id == '".$book_id."'" > 1) {
+                if (mysqli_num_rows(mysqli_query($conn, $fetch_read)) > 0) { // hnusný 
                     echo "checked";
                 }
                 echo "></td>"; 
