@@ -22,7 +22,8 @@ session_start();
 					
 					if ($userData['userPassword'] === $userPassword) {
                         $_SESSION['loggedin'] = true;
-                        $_SESSION['userName'] = $userName;
+                        $_SESSION['userName'] = $userData['userName'];
+                        $_SESSION['user_id'] = $userData['user_id'];
 						header("Location: http://localhost/odskrtavac/PHP/index.php");
 						die;
 					}

@@ -32,8 +32,8 @@ session_start();
                 echo "<td>" . $row["nazev"] . "</td>";
                 echo "<td>" . $row["rok_vydani"] . "</td>";
                 echo "<td>" . $row["puvod"] . "</td>";
-                echo "<td><input type='checkbox' onchange='handleChange(this)' id='" . $id . "'></td>";
-                echo "</tr>";                    
+                echo "<td><input type='checkbox' onchange='handleChange(this)' id='" . $id . "'></td>"; // tady PHP podminka pro usera a book id z tabulky read_books
+                echo "</tr>";
                 }
                 ?>
                 </table>
