@@ -8,7 +8,7 @@ if (!$conn) {
   }
 mysqli_select_db($conn,"odskrtavac");
 if ($checked === "true") {
-$sql="INSERT INTO read_books(userName, book_id) VALUES('".$_SESSION['user_id']."', (SELECT book_id from tituly WHERE book_id = '".$book_id."'))";
+$sql="INSERT INTO read_books(user_id, book_id) VALUES('".$_SESSION['user_id']."', (SELECT book_id from tituly WHERE book_id = '".$book_id."'))";
 } 
 else if ($checked === "false") {
 $sql="INSERT INTO read_books(read_book) VALUES('".$checked."')";
