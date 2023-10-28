@@ -4,6 +4,11 @@
 # titles_drama = ["Audience", "Vyšetřování ztráty třídní knihy", "Bílá nemoc", "Věc Makropulos", "Loupežník", "Balada z hadrů", "Čekání na Godota", "Pygmalion", "Maryša", "Noc na Karlštejně","Mastičkář", "Lakomec", "Hamlet", "Romeo a Julie", "Othello", "Zkrocení zlé ženy", "Antigona"]
 authors_poetry = ["Gellner, F.","Hrabě, V.","Hrubín, F.","Kainar, J.","Kryl, K.","Seifert, J.","Žáček, J.","Erben, K. J.","Havlíček Borovský, K.","Havlíček Borovský, K.","Mácha, K. H.","Neruda, J.","Baudelaire, Ch.","Neznámý", "Villon, F."]
 titles_poetry = ["Radosti života", "Blues pro bláznivou holku", "Romance pro křídlovku", "Nové mýty", "Kníška Karla Kryla", "Na vlnách TSF", "Okurková sezóna", "Kytice", "Křest svatého Vladimíra", "Tyrolské elegie", "Máj", "Balady a romance", "Květy zla", "Podkoní a žák", "Malý testament"]
+years = [1924, 1936, 1946, 1939, 1933, 1973, 1971, 2006, 1948, 1910, 1926, 1992, 1967, 1971, 1965, 1942, 1925, 1915, 1984, 1967, 1943, 1950, 1953, 1942, 1966, 1980, 1943, 1947, 1954, 1961, 1953, 1935, 1978, 1957, 1962, 1987, 1977, 1915, 1955, 1949, 1945, 1929, 1920, 1960, 1962, 1937, 1979, 1954, 1951, 1957, 1888, 1861, 1873, 1835, 1831, 1880, 1878, 1842, 1834, 1892, 1866, 1731, 1774, 1975, 1967, 1937, 1922, 1920, 1935, 1952, 1912, 1894, 1884, '14. stol.', 1668, 1601, 1595, 1622, 1594, 'antika', 1903, 1990, 1961, 1946, 1960, 1925, 1982, 1853, 1877, 1861, 1836, 1883, 1857, "14. stol.", 1456]
 title_type = "Poezie"
-for i in range(0,len(authors_poetry)):
-    print(f"('{authors_poetry[i]}','{titles_poetry[i]}','{title_type}'), ")
+for count, year in enumerate(years):
+    print(f"UPDATE tituly SET rok_vydani = '{year}' WHERE book_id = {count+3};")
+
+# UPDATE tituly_test
+# SET rok_vydani = '432'
+# WHERE book_id = 5;
