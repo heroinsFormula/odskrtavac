@@ -7,9 +7,9 @@ $dbname = "odskrtavac";
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 function create_table(string $type) {
-global $conn;
-echo"
-<div class='table'>
+global $conn
+    <<<HTML
+    <div class='table'>
     <h1 class='title'>{$type}</h1>
     <table>
         <tr>
@@ -18,31 +18,37 @@ echo"
             <th>Rok vydání</th>
             <th>Původ</th>
             <th></th>
-        </tr>";
-        $button = "<td><input type='checkbox' onchange='handleChange(this)'";
-        $query = "SELECT * FROM tituly WHERE literarni_druh='{$type}'";
-        $result = mysqli_query($conn,$query);
-        
-        while ($row = mysqli_fetch_assoc($result)) {
-            $book_id = $row["book_id"];
-            
-            echo "
+    </tr>
+    HTML;
+    
+    $query = "SELECT * FROM tituly WHERE literarni_druh='$type'";
+    $result = mysqli_query($conn,$query);
+    while ($row = mysqli_fetch_assoc($result)) {
+        $book_id = $row['book_id'];
+        <<<HTML
             <tr>
             <td>{$row['autor']}</td>
             <td>{$row['nazev']}</td>
             <td>{$row['rok_vydani']}</td>
-            <td>{$row['puvod']}</td>";
-            $fetch_read = "SELECT * FROM read_books WHERE user_id = {$_SESSION['user_id']} AND book_id = {$book_id}";
-            echo $button; echo "id='{$book_id}'";
-            if (mysqli_num_rows(mysqli_query($conn, $fetch_read)) > 0) {
-                echo "checked";
-            }
-            echo " 
-            ></td> 
-            </tr>"; // tohle furt vypadá docela nečitelně
+            <td>{$row['puvod']}</td>
+        HTML;
+        $fetch_read = "SELECT * FROM read_books WHERE user_id = {$_SESSION['user_id']} AND book_id = $book_id";
+        <<<BUTTON
+        <td><input type='checkbox' onchange='handleChange(this.id) id='$book_id'
+        BUTTON;
+        if (mysqli_num_rows(mysqli_query($conn, $fetch_read)) > 0) {
+            echo "checked>";
         }
-echo"   
+        <<<HTML
+            </td> 
+            </tr>
+        HTML;
+    }
+
+<<<HTML
     </table>
-</div>";
+    </div>
+HTML;
 }
+
 ?>
