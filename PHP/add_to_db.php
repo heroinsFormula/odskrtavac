@@ -1,4 +1,5 @@
 <?php
+// sadfas
 $book_id = intval($_POST['id']);
 $checked = strval($_POST['checked']);
 include("functions.php");
