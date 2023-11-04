@@ -1,18 +1,14 @@
 <?php 
 session_start();
-
-	include("connection.php");
-	include_once("functions.php");
+require_once('functions.php');
     
 	if ($_SERVER['REQUEST_METHOD'] == "POST") {
-		//something was posted
 		$userName = $_POST['userName'];
 		$userPassword = $_POST['userPassword'];
 
 		if(!empty($userName) && !empty($userPassword) && !is_numeric($userName)) {
 
-			//read from database
-			$query = "select * from users where userName = '$userName' limit 1";
+			$query = "SELECT * FROM users WHERE userName = '$userName' limit 1";
 			$result = mysqli_query($conn, $query);
 
 			if ($result) {
@@ -24,32 +20,29 @@ session_start();
                         $_SESSION['loggedin'] = true;
                         $_SESSION['userName'] = $userData['userName'];
                         $_SESSION['user_id'] = $userData['user_id'];
-						header("Location: http://localhost/test/odskrtavac/PHP/index.php");
+						header('Location: http://localhost/test/odskrtavac/PHP/index.php');
 						die;
 					}
 				}
 			}
 			
-			echo "wrong username or password!";
+			echo "Neplatné údaje!";
 		} else {
-			echo "wrong username or password!";
+			echo "Špatné uživatelské jméno či heslo!";
 		}
 	}
 
+require_once('header.php'); 
 ?>
-
-<?php include_once 'header.php'; ?>
     
     <main>
-        <div class="table_wrapper">
-			<form method="post">
-				<input type="text" name="userName"><br>
-				<input type="password" name="userPassword"><br>
-				<input type="submit" value="Přihlásit se">
+        <div class='table_wrapper'>
+			<form method='POST'>
+				<input type='text' name='userName'><br>
+				<input type='password' name='userPassword'><br>
+				<input type='submit' value='Přihlásit se'>
 			</form>
         </div>
     </main>
-
-    <script src="../JS/index.js";></script>
 </body>
 </html>

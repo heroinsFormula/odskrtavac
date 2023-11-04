@@ -1,13 +1,10 @@
 <?php
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "odskrtavac";
+$servername = 'localhost';
+$username = 'root';
+$password = '';
+$dbname = 'odskrtavac';
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-if ($conn->connect_error) {
-    exit("chyba: " . $conn->connect_error);
-}
+if (!$conn) {exit("chyba: $conn");}
 ?>

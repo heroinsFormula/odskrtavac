@@ -1,12 +1,10 @@
 <?php
 $book_id = intval($_POST['id']);
 $checked = strval($_POST['checked']);
-include_once("functions.php");
-include("login.php");
+require_once('functions.php');
+require('login.php');
 
-if (!$conn) {die('Could not connect: ' . mysqli_error($con));}
-
-mysqli_select_db($conn,"odskrtavac");
+mysqli_select_db($conn,$dbname);
 if ($checked === 'true') {
 $sql = "INSERT INTO read_books (user_id, book_id)
         VALUES ('{$_SESSION['user_id']}', (SELECT book_id from tituly WHERE book_id = '$book_id') )";
