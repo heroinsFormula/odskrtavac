@@ -1,6 +1,6 @@
 <?php
 session_start();
-    include('functions.php');
+    include_once('functions.php');
 ?>
 
 <?php include_once 'header.php'; ?>
@@ -10,7 +10,7 @@ session_start();
             <?php 
             create_table("Próza");
             create_table("Poezie");
-            create_table("Drama")
+            create_table("Drama");
             ?>
             <div class="table">
                 <h1 class="title">Přečteno</h1>

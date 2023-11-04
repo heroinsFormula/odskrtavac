@@ -2,7 +2,7 @@
 session_start();
 
 	include("connection.php");
-	include("functions.php");
+	include_once("functions.php");
 
 
 	if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -13,7 +13,7 @@ session_start();
 			//save to database
 			$query = "insert into users (userName, userPassword) values ('$userName','$userPassword')";
 			mysqli_query($conn, $query);
-            header('Location: http://localhost/odskrtavac/PHP/index.php');
+            header('Location: http://localhost/test/odskrtavac/PHP/index.php');
             exit;
 		} else {
 			echo "Please enter some valid information!";

@@ -1,7 +1,7 @@
 <?php
 $book_id = intval($_POST['id']);
 $checked = strval($_POST['checked']);
-include("functions.php");
+include_once("functions.php");
 include("login.php");
 
 if (!$conn) {die('Could not connect: ' . mysqli_error($con));}

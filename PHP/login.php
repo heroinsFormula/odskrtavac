@@ -2,7 +2,7 @@
 session_start();
 
 	include("connection.php");
-	include("functions.php");
+	include_once("functions.php");
     
 	if ($_SERVER['REQUEST_METHOD'] == "POST") {
 		//something was posted
@@ -24,7 +24,7 @@ session_start();
                         $_SESSION['loggedin'] = true;
                         $_SESSION['userName'] = $userData['userName'];
                         $_SESSION['user_id'] = $userData['user_id'];
-						header("Location: http://localhost/odskrtavac/PHP/index.php");
+						header("Location: http://localhost/test/odskrtavac/PHP/index.php");
 						die;
 					}
 				}
