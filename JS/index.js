@@ -9,16 +9,13 @@ function handleChange(checkbox) {
 
     let row = checkbox.closest('tr');
     let row_data = row.children;
-    let table_from = row.closest('table').id;
-    // if (table_from === 'Přečteno') {
-    //     let table_to 
-    // }
     let table_read = document.getElementById('Přečteno');
     let new_row = table_read.insertRow(-1);
 
     Array.from(row_data).forEach((data) => {
         let cell = new_row.insertCell(-1);
         cell.innerHTML = data.innerHTML;
+        row.style.display = 'none';
     });
 
 }

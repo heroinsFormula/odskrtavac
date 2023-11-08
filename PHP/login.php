@@ -1,5 +1,4 @@
 <?php 
-session_start();
 require_once('functions.php');
     
 	if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -20,6 +19,7 @@ require_once('functions.php');
                         $_SESSION['loggedin'] = true;
                         $_SESSION['userName'] = $userData['userName'];
                         $_SESSION['user_id'] = $userData['user_id'];
+						$user_id = $_SESSION['user_id'];
 						header('Location: http://localhost/test/odskrtavac/PHP/index.php');
 						die;
 					}
