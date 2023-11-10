@@ -29,6 +29,18 @@ while ($row = mysqli_fetch_assoc($result)) {
     } else {
         $world[] = $rok;
     }
+    
+    switch ($druh) {
+        case 'Próza':
+            $prose[] = $druh;   
+            break;
+        case 'Poezie':
+            $poetry[] = $druh;
+            break;
+        case 'Drama':
+            $drama[] = $druh;
+            break;
+    }
 }
 
 ?>

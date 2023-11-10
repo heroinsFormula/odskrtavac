@@ -9,6 +9,9 @@ require_once('header.php');
         echo "Světová a česká literatura 19. století: ".sizeof($earlier_1900)."<br>";
         echo "Světová literatura 20. a 21. století: ".sizeof($world)."<br>";
         echo "Česká literatura 20. a 21. století: ".sizeof($czech)."<br>";
+        echo "Próza:".sizeof($prose)."<br>";
+        echo "Poezie: ".sizeof($poetry)."<br>";
+        echo "Drama: ".sizeof($drama)."<br>";
     ?>
 </aside>
     <div class='table_wrapper'>
