@@ -1,8 +1,7 @@
 <?php
 require('connection.php');
-require('login.php');
 $query = "SELECT * FROM tituly
-          WHERE book_id IN (SELECT book_id FROM read_books WHERE user_id = $user_id)";
+          WHERE book_id IN (SELECT book_id FROM read_books WHERE user_id = {$_SESSION['user_id']})";
 $result = mysqli_query($conn,$query);
 
 $total = mysqli_num_rows($result);

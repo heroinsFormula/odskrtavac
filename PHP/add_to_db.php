@@ -1,7 +1,5 @@
 <?php
 require('connection.php');
-require_once('functions.php');
-in
 $book_id = intval($_POST['id']);
 $checked = strval($_POST['checked']);
 
