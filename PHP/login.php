@@ -1,7 +1,7 @@
 <?php 
-require_once('functions.php');
+require('connection.php');
     
-	if ($_SERVER['REQUEST_METHOD'] == "POST") {
+	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$userName = $_POST['userName'];
 		$userPassword = $_POST['userPassword'];
 
@@ -17,7 +17,7 @@ require_once('functions.php');
 					
 					if ($userData['userPassword'] === $userPassword) {
                         $_SESSION['loggedin'] = true;
-                        $_SESSION['userName'] = $userData['userName'];
+                        $_SESSION['userName'] = $userData['userName'];	
                         $_SESSION['user_id'] = $userData['user_id'];
 						$user_id = $_SESSION['user_id'];
 						header('Location: http://localhost/test/odskrtavac/PHP/index.php');

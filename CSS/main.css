@@ -6,7 +6,6 @@ body {
     background-color: var(--lightgray);
     padding: 0;
     margin: 0;
-    overflow-x: hidden;
     font-family: "Montserrat", sans-serif;
 }
 
@@ -52,7 +51,7 @@ ul {
 main {
     background-color: rgb(255, 255, 255);
     margin: auto;
-    width: 70%;
+    width: 100%;
     height: 100%;
 }
 
@@ -71,24 +70,89 @@ main {
 .title {
     font-size: xx-large;
     font-weight: bold;
-    margin-left: 5vw;
-    margin-bottom: 0;
-    margin-top: 5vh;
 }
 
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
-    margin-bottom: 5vh;
+}
+
+table td:nth-child(6) {
+    text-align: center;
+}
+table th:nth-child(6) {
+    text-align: center;
 }
   
-  td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
+td, th {
+border: 1px solid #dddddd;
+text-align: left;
+padding: 8px;
+}
+
+tr:nth-child(even) {
+background-color: #dddddd;
+}
+
+#search_button {
+    background-image: url('../IMG/lupa.png');
+    width: 10px;
+    height: 10px;
+}
+
+
+.overlay {
+    transform: translateX(50%);
+    height: 100%;
+    width: 0;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    background-color: rgb(0,0,0); /* Black fallback color */
+    background-color: rgba(0,0,0, 0.9); /* Black w/opacity */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
   }
   
-  tr:nth-child(even) {
-    background-color: #dddddd;
+  /* Position the content inside the overlay */
+  .overlay-content {
+    position: relative;
+    top: 25%; /* 25% from the top */
+    width: 100%; /* 100% width */
+    text-align: center; /* Centered text/links */
+  }
+  
+  /* The navigation links inside the overlay */
+  .overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block; /* Display block instead of inline */
+    transition: 0.3s; /* Transition effects on hover (color) */
+  }
+  
+  /* When you mouse over the navigation links, change their color */
+  .overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+  }
+  
+  /* Position the close button (top right corner) */
+  .overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+  }
+  
+  /* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
+  @media screen and (max-height: 450px) {
+    .overlay a {font-size: 20px}
+    .overlay .closebtn {
+      font-size: 40px;
+      top: 15px;
+      right: 35px;
+    }
   }

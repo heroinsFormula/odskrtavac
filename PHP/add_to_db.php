@@ -1,8 +1,9 @@
 <?php
+require('connection.php');
+require_once('functions.php');
+in
 $book_id = intval($_POST['id']);
 $checked = strval($_POST['checked']);
-require_once('functions.php');
-require('login.php');
 
 mysqli_select_db($conn,$dbname);
 if ($checked === 'true') {

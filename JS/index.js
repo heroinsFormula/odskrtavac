@@ -6,11 +6,14 @@ function handleChange(checkbox) {
     xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhttp.send(params);
 
+    // $.ajax({
+    //     url: 'functions.php',
+    // });
 
     let row = checkbox.closest('tr');
     let row_data = row.children;
-    let table_read = document.getElementById('Přečteno');
-    let new_row = table_read.insertRow(-1);
+    let table = checkbox.closest('table');
+    let new_row = table.insertRow(-1);
 
     Array.from(row_data).forEach((data) => {
         let cell = new_row.insertCell(-1);
@@ -18,4 +21,13 @@ function handleChange(checkbox) {
         row.style.display = 'none';
     });
 
+}
+
+function openNav() {
+    document.getElementById("myNav").style.width = "50%";
+  }
+  
+  /* Close when someone clicks on the "x" symbol inside the overlay */
+  function closeNav() {
+    document.getElementById("myNav").style.width = "0%";
 }

@@ -1,11 +1,11 @@
 <?php
 require('connection.php');
-
+require('login.php');
 $query = "SELECT * FROM tituly
-          WHERE book_id IN (SELECT book_id FROM read_books WHERE user_id = {$_SESSION['user_id']})";
+          WHERE book_id IN (SELECT book_id FROM read_books WHERE user_id = $user_id)";
 $result = mysqli_query($conn,$query);
 
-$počet = mysqli_num_rows($result);
+$total = mysqli_num_rows($result);
 $earlier_1800 = array(); // xxxx-1800
 $earlier_1900 = array(); // 1801-1900
 $czech = array(); // 1901-2000
@@ -43,4 +43,11 @@ while ($row = mysqli_fetch_assoc($result)) {
     }
 }
 
+$earlier_1800 = sizeof($earlier_1800);
+$earlier_1900 = sizeof($earlier_1900);
+$czech = sizeof($czech);
+$world = sizeof($world);
+$prose = sizeof($prose);
+$poetry = sizeof($poetry);
+$drama = sizeof($drama);
 ?>

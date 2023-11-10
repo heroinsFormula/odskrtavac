@@ -1,4 +1,6 @@
-<?php require_once('functions.php'); ?>
+<?php 
+require('connection.php');
+?>
 <!DOCTYPE html>
 <html>
 <head>
