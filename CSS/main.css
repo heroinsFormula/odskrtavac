@@ -156,3 +156,7 @@ background-color: #dddddd;
       right: 35px;
     }
   }
+
+#criteria > * {
+    color: white;
+}
