@@ -41,6 +41,9 @@ require_once('functions.php');
                 $cat = '';
                 $type = '';
 
+                $autori = [];
+                $autori[] = $autor;
+
                 switch (true) {
                     case $rok <= 1800: // $rok = xxxx-1800
                         $cat = 'earlier_1800';

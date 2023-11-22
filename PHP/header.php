@@ -11,7 +11,7 @@ require('connection.php');
     <title>Odškrtávač</title>
     <link rel='stylesheet' type='text/css' media='screen' href='../CSS/main.css'>
     <script src='https://code.jquery.com/jquery-3.7.1.min.js' integrity='sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=' crossorigin='anonymous'></script>
-    <script src='../JS/index.js'></script>
+    <script src='../JS/index.js' defer></script>
 </head>
 <body>
 <header>
@@ -25,6 +25,7 @@ require('connection.php');
                 echo <<<HTML
                     <a>Vítejte uživateli {$_SESSION['userName']}</a>
                     <a href='logout.php'>odhlásit se</a>
+                    <!-- <input type='color' value='#dedede' onchange='colorChange(this)'> -->
                 HTML;
             } else {
                 echo <<<HTML

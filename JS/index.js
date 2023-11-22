@@ -1,3 +1,16 @@
+let categories = {
+    earlier_1800 : document.getElementById('earlier_1800'),
+    earlier_1900 : document.getElementById('earlier_1900'),
+    world : document.getElementById('world'),
+    czech : document.getElementById('czech'),
+    'total' : document.getElementById('total'),
+}
+let lit_types = {
+    prose : document.getElementById('prose'),
+    poetry : document.getElementById('poetry'),
+    drama : document.getElementById('drama'),
+}
+
 function handleChange(checkbox) {
     // let params = `id=${checkbox.id}`;
     // checkbox.checked ? params += `&checked=true` : params += `&checked=false`;
@@ -36,25 +49,14 @@ function handleChange(checkbox) {
 
     });
 
-    let categories = {
-        earlier_1800 : document.getElementById('earlier_1800'),
-        earlier_1900 : document.getElementById('earlier_1900'),
-        world : document.getElementById('world'),
-        czech : document.getElementById('czech'),
-    }
-
-    let lit_types = {
-        prose : document.getElementById('prose'),
-        poetry : document.getElementById('poetry'),
-        drama : document.getElementById('drama'),
-    }
-
     let my_category = row.dataset.category;
     let my_lit_type = row.dataset.litType;
 
     
     categories[my_category].innerHTML = parseInt(categories[my_category].innerHTML) + 1;
-    lit_types[my_lit_type].innerHTML = parseInt(lit_types[my_lit_type].innerHTML) + 1; 
+    lit_types[my_lit_type].innerHTML = parseInt(lit_types[my_lit_type].innerHTML) + 1;
+    categories['total'].innerHTML = parseInt(categories['total'].innerHTML) + 1;
+
 }
 
 
@@ -64,6 +66,14 @@ function drop_titles() {
         contentType: 'application/x-www-form-urlencoded',
     });
     $('#read_books tr').remove();
+    $('#total').html(0);
+    for (const [key, value] of Object.entries(categories)) {
+        value.innerHTML = 0;
+    }
+    for (const [key, value] of Object.entries(lit_types)) {
+        value.innerHTML = 0;
+    }
+    
 }
 
 
@@ -74,4 +84,12 @@ function openNav() {
 
   function closeNav() {
     document.getElementById("myNav").style.width = "0%";
+}
+
+
+function colorChange(color) {
+    let root = document.documentElement;
+    console.log(root);
+    console.log(color.value);
+    root.style.setProperty('--color', color.value)
 }
