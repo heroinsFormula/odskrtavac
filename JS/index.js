@@ -1,4 +1,3 @@
-const xhttp = new XMLHttpRequest();
 function handleChange(checkbox) {
     // let params = `id=${checkbox.id}`;
     // checkbox.checked ? params += `&checked=true` : params += `&checked=false`;
@@ -13,10 +12,22 @@ function handleChange(checkbox) {
         contentType: 'application/x-www-form-urlencoded',
     });
 
+    
+
     let row = checkbox.closest('tr');
     let row_data = row.children;
-    let table = checkbox.closest('table');
-    let new_row = table.insertRow(-1);
+
+    let read_books = document.getElementById('read_books');
+    let not_read = document.getElementById('not_read');
+
+    switch (checkbox.closest('table')) {
+        case read_books:
+            to_table = not_read;
+            break;
+        case not_read:
+            to_table = read_books;
+    }
+    let new_row = to_table.insertRow(-1);
 
     Array.from(row_data).forEach((data) => {
         let cell = new_row.insertCell(-1);
@@ -25,6 +36,25 @@ function handleChange(checkbox) {
 
     });
 
+    let categories = {
+        earlier_1800 : document.getElementById('earlier_1800'),
+        earlier_1900 : document.getElementById('earlier_1900'),
+        world : document.getElementById('world'),
+        czech : document.getElementById('czech'),
+    }
+
+    let lit_types = {
+        prose : document.getElementById('prose'),
+        poetry : document.getElementById('poetry'),
+        drama : document.getElementById('drama'),
+    }
+
+    let my_category = row.dataset.category;
+    let my_lit_type = row.dataset.litType;
+
+    
+    categories[my_category].innerHTML = parseInt(categories[my_category].innerHTML) + 1;
+    lit_types[my_lit_type].innerHTML = parseInt(lit_types[my_lit_type].innerHTML) + 1; 
 }
 
 
@@ -33,6 +63,7 @@ function drop_titles() {
         url: 'remove_all.php',
         contentType: 'application/x-www-form-urlencoded',
     });
+    $('#read_books tr').remove();
 }
 
 

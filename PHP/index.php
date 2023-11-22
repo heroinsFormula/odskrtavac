@@ -13,14 +13,18 @@ require_once('functions.php');
     ?>
     <button onclick='openNav()' style='position: sticky; top: 50%;'>ahoj</button>
     <div class='table_wrapper'>
-        <table id='tituly'>
+        <table id='not_read'>
             <tr>
                 <th>Autor</th>
                 <th>Název</th>
                 <th>Rok vydání</th>
                 <th>Původ</th>
                 <th>Literární druh</th>
-                <th><button><img src='../IMG/lupa.png' id='search_button'></button></th>
+                <th>
+                    <button  class='func_button' style='padding: 0;'>
+                        <img src='../IMG/lupa.png' alt='lupa.png' style='width: 30px;'>
+                    </button>
+                </th>
             </tr>
             
             <?php
@@ -72,25 +76,29 @@ require_once('functions.php');
                 HTML;
             }
             ?>
-
-            <!--    Přečtené tituly    -->
-            <tr class='title'>
-                <td style='border-width: 0px;'>Přečteno</td>
-            </tr>
+        </table>
+    
+        <!--    Přečtené tituly    -->
+    
+        <h2 class='title'>Přečteno</h2>
+        <table id='read_books'>
             <tr>
                 <th>Autor</th>
                 <th>Název</th>
                 <th>Rok vydání</th>
                 <th>Původ</th>
                 <th>Literární druh</th>
-                <th><button onclick='drop_titles()'>x</button></th>
-            </tr>
-            <?php
-            $query = "SELECT * FROM tituly
-                      WHERE book_id IN (SELECT book_id FROM read_books WHERE user_id = {$_SESSION['user_id']})";
-            $result = mysqli_query($conn,$query);
-            if (mysqli_num_rows($result) != 0) {
-    
+                <th><button class='func_button' onclick='drop_titles()'>x</button></th>
+            </tr>        
+        <?php
+        $query = "SELECT * FROM tituly
+                  WHERE book_id IN (SELECT book_id FROM read_books WHERE user_id = {$_SESSION['user_id']})";
+        $result = mysqli_query($conn,$query);
+        if (mysqli_num_rows($result) != 0) {
+        ?>
+        
+
+                <?php
                 while ($row = mysqli_fetch_assoc($result)) {
                     $book_id = $row['book_id'];
                     $autor = $row['autor'];
@@ -133,13 +141,9 @@ require_once('functions.php');
                         </tr>
                     HTML;
                 }
-                echo <<<HTML
-                    </table>
-                    </div>
-                HTML;
-
             } else {
                 $total = 0;
+                echo 'nemáte přečtené žádné tituly';
             }
             ?>
         </table>
@@ -152,23 +156,14 @@ require_once('functions.php');
             echo <<<HTML
                 <h1 style='color:white;'>Kritéria pro výběr literárních děl do seznamu k maturitní zkoušce:</h1>
                 <ol id='criteria'>
-                    <label for='total'>Počet literárních děl žákovského seznamu: 20</label>
                     <li id='total'>$total</li>
-                    <label for='earlier_1800'>Světová a česká literatura do konce 18. století (min. 2 díla):</label>
                     <li id='earlier_1800'>$earlier_1800</li>
-                    <label for='earlier_1900'>Světová a česká literatura 19. století (min. 3 díla): </label>
-                    <li>$earlier_1900</li>
-                    <label for='world'>Světová literatura 20. a 21. století (min. 4 díla): </label>
+                    <li id='earlier_1900'>$earlier_1900</li>
                     <li id='world'>$world</li>
-                    <label for='czech'>Česká literatura 20. a 21. století (min. 5 děl): </label>
                     <li id='czech'>$czech</li>
-                    <label for='types'>Minimálně dvěma literárními díly musí být v seznamu žáka zastoupena:</label>
                     <ol id='types'>
-                        <label for='prose'>Próza: </label>
                         <li id='prose'>$prose</li>
-                        <label for='poetry'>Poezie: </label>
-                        <li id='potery'>$poetry</li>
-                        <label for='drama'>Drama: </label>
+                        <li id='poetry'>$poetry</li>
                         <li id='drama'>$drama</li>
                     </ol>
                 </ol>
