@@ -67,10 +67,14 @@ table {
   table-layout: auto;
   overflow: hidden;
 }
-table td, table th {
-  border: 1px solid #dddddd;
+table td {
+  border: 1px solid #dedede;
   text-align: left;
   padding: 8px;
+}
+table th {
+  cursor: pointer;
+  border: 1px solid #dedede;
 }
 table tr:nth-child(even) {
   background-color: var(--color);

@@ -14,7 +14,8 @@ require_once('functions.php');
     <button onclick='openNav()' style='position: sticky; top: 50%;'>ahoj</button>
     <div class='table_wrapper'>
         <table id='not_read'>
-            <tr>
+            <thead>
+            <tr id='header_row'>
                 <th>Autor</th>
                 <th>Název</th>
                 <th>Rok vydání</th>
@@ -26,6 +27,7 @@ require_once('functions.php');
                     </button>
                 </th>
             </tr>
+            </thead>
             
             <?php
             $query = "SELECT * FROM tituly
@@ -85,6 +87,7 @@ require_once('functions.php');
     
         <h2 class='title'>Přečteno</h2>
         <table id='read_books'>
+        <thead>
             <tr>
                 <th>Autor</th>
                 <th>Název</th>
@@ -92,7 +95,8 @@ require_once('functions.php');
                 <th>Původ</th>
                 <th>Literární druh</th>
                 <th><button class='func_button' onclick='drop_titles()'>x</button></th>
-            </tr>        
+            </tr>    
+        </thead>    
         <?php
         $query = "SELECT * FROM tituly
                   WHERE book_id IN (SELECT book_id FROM read_books WHERE user_id = {$_SESSION['user_id']})";
