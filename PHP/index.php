@@ -23,7 +23,7 @@ require_once('functions.php');
                 <th>Literární druh</th>
                 <th>
                     <button  class='func_button' style='padding: 0;'>
-                        <img src='../IMG/lupa.png' alt='lupa.png' style='width: 30px;'>
+                        <img src='../IMG/lupa.svg' alt='lupa.png' style='width: 30px;'>
                     </button>
                 </th>
             </tr>
@@ -42,6 +42,8 @@ require_once('functions.php');
                 $druh = $row['literarni_druh'];
                 $cat = '';
                 $type = '';
+                $flag = $flags[$puvod];
+            
 
                 $autori = [];
                 $autori[] = $autor;
@@ -70,11 +72,13 @@ require_once('functions.php');
                 }
 
             echo <<<HTML
-                    <tr data-category='$cat' data-lit-type='$type'>
+                    <tr data-category='$cat' data-lit-type='$type' data-author='$autor'>
                         <td>{$row['autor']}</td>
                         <td>{$row['nazev']}</td>
                         <td>{$row['rok_vydani']}</td>
-                        <td>{$row['puvod']}</td>
+                        <td> <span class='text'>{$row['puvod']}</>
+                            <img style='float: right;' class='icon' src='../IMG/flags/4x3/$flag' width="24" height="18" alt='$flag'>
+                        </td>
                         <td>{$row['literarni_druh']}</td>
                         <td><input type='checkbox' onchange='handleChange(this)' id='$book_id'></td>
                     </tr>
@@ -138,7 +142,7 @@ require_once('functions.php');
                     }
 
                     echo <<<HTML
-                        <tr>
+                        <tr data-category='$cat' data-lit-type='$type' data-author='$autor'>
                             <td>{$row['autor']}</td>
                             <td>{$row['nazev']}</td>
                             <td>{$row['rok_vydani']}</td>

@@ -4,12 +4,15 @@ let categories = {
     world : document.getElementById('world'),
     czech : document.getElementById('czech'),
     'total' : document.getElementById('total'),
+
 }
 let lit_types = {
     prose : document.getElementById('prose'),
     poetry : document.getElementById('poetry'),
     drama : document.getElementById('drama'),
 }
+let authors = [];
+
 
 function handleChange(checkbox) {
     // let params = `id=${checkbox.id}`;
@@ -43,15 +46,21 @@ function handleChange(checkbox) {
 
     Array.from(row_data).forEach((data) => {
         let cell = new_row.insertCell(-1);
-        cell.innerHTML = data.innerHTML;
+        cell.innerHTML = data.innerHTML; inner
         row.remove();
 
     });
 
     let my_category = row.dataset.category,
-        my_lit_type = row.dataset.litType;
+        my_lit_type = row.dataset.litType,
+        my_author = row.dataset.author;
 
 
+    authors.push(my_author);
+    if ((new Set(authors)).size != authors.length) {
+        console.log("fuck")
+    }
+    row.style.color = 'red';
     categories[my_category].innerHTML = parseInt(categories[my_category].innerHTML) + 1;
     lit_types[my_lit_type].innerHTML = parseInt(lit_types[my_lit_type].innerHTML) + 1;
     categories['total'].innerHTML = parseInt(categories['total'].innerHTML) + 1;

@@ -76,10 +76,13 @@ table {
     table-layout: auto;
     overflow: hidden;
 
+    
     td {
         border: 1px solid #dedede;
         text-align: left;
         padding: 8px;
+        display: flex;
+        align-items: center
     }
     th {
         cursor: pointer;
@@ -99,7 +102,11 @@ table {
     }
 }
     
-
+.icon,
+.text {
+  vertical-align: middle;
+  display: inline-block;
+}
 
   
 

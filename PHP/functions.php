@@ -6,4 +6,17 @@ $world = 0; //1901-2000+, world
 $prose = 0;
 $poetry = 0;
 $drama = 0;
+
+
+$flags = [
+    "Česká republika" => "cz.svg",
+    "Spojené státy" => "us.svg",
+    "Francie" => "gf.svg",
+    "Německo" => "de.svg",
+    "Itálie" => "it.svg",
+    "Spojené království" => "gb.svg",
+    "Rusko" => "ru.svg",
+    "Irsko" => "ie.svg",
+    "Řecko" => "gr.svg",
+]
 ?>
