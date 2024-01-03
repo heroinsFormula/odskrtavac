@@ -18,6 +18,7 @@ require('connection.php');
     <ul>
         <li><a href='index.php'>seznam děl</a></li>
         <li><a href=''>vlastní seznam</a></li>
+        <li><a href=''>vygenerovat studentský dokument</a></li>
         <li>
             <div id='login_wrap'>
             <?php

@@ -45,9 +45,6 @@ require_once('functions.php');
                 $flag = $flags[$puvod];
             
 
-                $autori = [];
-                $autori[] = $autor;
-
                 switch (true) {
                     case $rok <= 1800: // $rok = xxxx-1800
                         $cat = 'earlier_1800';
@@ -99,6 +96,8 @@ require_once('functions.php');
                     $total = mysqli_num_rows($result);
                     $flag = $flags[$puvod];
 
+                    $autori[] = $autor;
+
                     switch (true) {
                         case $rok <= 1800: // $rok = xxxx-1800
                             $earlier_1800 += 1;
@@ -135,8 +134,12 @@ require_once('functions.php');
                         </tr>
                     HTML;
                 }
+            $js_autori = json_encode($autori);
             ?>
         </table>
+        <script>
+            let autori = <?php echo $js_autori ?>
+        </script>
         
     </div>
     <div id="myNav" class="overlay">
@@ -164,5 +167,4 @@ require_once('functions.php');
 
     </div>
 </main>
-</body>
-</html>
+<?php require_once('footer.php')?>

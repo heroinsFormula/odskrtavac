@@ -8,6 +8,7 @@ $prose = 0;
 $poetry = 0;
 $drama = 0;
 
+$autori = [];
 
 $flags = [
     "Česká republika" => "cz.svg",

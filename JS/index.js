@@ -11,8 +11,21 @@ let lit_types = {
     poetry : document.getElementById('poetry'),
     drama : document.getElementById('drama'),
 }
-let authors = [];
 
+console.log(autori);
+const duplicates = [];
+for (let i = 0; i < autori.length; i++) {
+    for (let j = i + 1; j < autori.length; j++) {
+      if (autori[i] === autori[j] || autori[i] in duplicates) {
+        duplicates.push(autori[i]);
+      }
+    }
+  }    
+console.log(duplicates)
+
+if (duplicates.size > 2) {
+    
+}
 
 function handleChange(checkbox) {
     // let params = `id=${checkbox.id}`;
@@ -57,12 +70,7 @@ function handleChange(checkbox) {
     
 
 
-
-    authors.push(my_author);
-    if ((new Set(authors)).size != authors.length) {
-    }
-    row.style.color = 'red';
-
+    autori.push(my_author);    
 
 }
 
