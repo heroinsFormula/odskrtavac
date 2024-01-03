@@ -29,41 +29,40 @@ function handleChange(checkbox) {
     });
 
 
-
     let row = checkbox.closest('tr'),
-        row_data = row.children,
-        read_books = document.getElementById('read_books'),
-        not_read = document.getElementById('not_read');
-
-    switch (checkbox.closest('table')) {
-        case read_books:
-            to_table = not_read;
-            break;
-        case not_read:
-            to_table = read_books;
-    }
-    let new_row = to_table.insertRow(-1);
-
-    Array.from(row_data).forEach((data) => {
-        let cell = new_row.insertCell(-1);
-        cell.innerHTML = data.innerHTML; inner
-        row.remove();
-
-    });
+        table = row.closest('tbody');
 
     let my_category = row.dataset.category,
         my_lit_type = row.dataset.litType,
         my_author = row.dataset.author;
 
 
+    if (checkbox.checked) {
+        previous_row = row.rowIndex - 1;
+        console.log(previous_row)
+        table.insertBefore(row,null)
+
+        categories[my_category].innerHTML = parseInt(categories[my_category].innerHTML) + 1;
+        lit_types[my_lit_type].innerHTML = parseInt(lit_types[my_lit_type].innerHTML) + 1;
+        categories['total'].innerHTML = parseInt(categories['total'].innerHTML) + 1;
+
+    } else if (!checkbox.checked) {
+        table.insertBefore(row, table.rows[previous_row])
+
+        categories[my_category].innerHTML = parseInt(categories[my_category].innerHTML) - 1;
+        lit_types[my_lit_type].innerHTML = parseInt(lit_types[my_lit_type].innerHTML) - 1;
+        categories['total'].innerHTML = parseInt(categories['total'].innerHTML) - 1;
+    }
+      
+    
+
+
+
     authors.push(my_author);
     if ((new Set(authors)).size != authors.length) {
-        console.log("fuck")
     }
     row.style.color = 'red';
-    categories[my_category].innerHTML = parseInt(categories[my_category].innerHTML) + 1;
-    lit_types[my_lit_type].innerHTML = parseInt(lit_types[my_lit_type].innerHTML) + 1;
-    categories['total'].innerHTML = parseInt(categories['total'].innerHTML) + 1;
+
 
 }
 
@@ -147,7 +146,7 @@ function listen_up (listener, i) {
 
 
 let header_row = document.getElementById('header_row');
-for (let i = 0; i < header_row.children.length; i++) {
+for (let i = 0; i < header_row.children.length-1; i++) {
     listen_up(header_row.children[i], i)
 }
 
@@ -161,6 +160,10 @@ function closeNav() {
     document.getElementById("myNav").style.width = "0%";
 }
 
+
+function open_search_menu() {
+    document.getElementById('search_menu').style.display = 'block';
+}
 
 // function colorChange(color) {
 //     let root = document.documentElement;

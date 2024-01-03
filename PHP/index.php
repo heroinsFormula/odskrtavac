@@ -22,7 +22,7 @@ require_once('functions.php');
                 <th>Původ</th>
                 <th>Literární druh</th>
                 <th>
-                    <button  class='func_button' style='padding: 0;'>
+                    <button class='func_button' onclick='open_search_menu()' style='padding: 0;'>
                         <img src='../IMG/lupa.svg' alt='lupa.png' style='width: 30px;'>
                     </button>
                 </th>
@@ -76,7 +76,7 @@ require_once('functions.php');
                         <td>{$row['autor']}</td>
                         <td>{$row['nazev']}</td>
                         <td>{$row['rok_vydani']}</td>
-                        <td> <span class='text'>{$row['puvod']}</>
+                        <td><span class='text'>{$row['puvod']}</>
                             <img style='float: right;' class='icon' src='../IMG/flags/4x3/$flag' width="24" height="18" alt='$flag'>
                         </td>
                         <td>{$row['literarni_druh']}</td>
@@ -84,32 +84,12 @@ require_once('functions.php');
                     </tr>
                 HTML;
             }
-            ?>
-        </table>
     
-        <!--    Přečtené tituly    -->
-    
-        <h2 class='title'>Přečteno</h2>
-        <table id='read_books'>
-        <thead>
-            <tr>
-                <th>Autor</th>
-                <th>Název</th>
-                <th>Rok vydání</th>
-                <th>Původ</th>
-                <th>Literární druh</th>
-                <th><button class='func_button' onclick='drop_titles()'>x</button></th>
-            </tr>    
-        </thead>    
-        <?php
+
         $query = "SELECT * FROM tituly
                   WHERE book_id IN (SELECT book_id FROM read_books WHERE user_id = {$_SESSION['user_id']})";
         $result = mysqli_query($conn,$query);
-        if (mysqli_num_rows($result) != 0) {
-        ?>
-        
 
-                <?php
                 while ($row = mysqli_fetch_assoc($result)) {
                     $book_id = $row['book_id'];
                     $autor = $row['autor'];
@@ -117,6 +97,7 @@ require_once('functions.php');
                     $puvod = $row['puvod'];
                     $druh = $row['literarni_druh'];
                     $total = mysqli_num_rows($result);
+                    $flag = $flags[$puvod];
 
                     switch (true) {
                         case $rok <= 1800: // $rok = xxxx-1800
@@ -146,16 +127,14 @@ require_once('functions.php');
                             <td>{$row['autor']}</td>
                             <td>{$row['nazev']}</td>
                             <td>{$row['rok_vydani']}</td>
-                            <td>{$row['puvod']}</td>
+                            <td><span class='text'>{$row['puvod']}</>
+                                <img style='float: right;' class='icon' src='../IMG/flags/4x3/$flag' width="24" height="18" alt='$flag'>
+                            </td>
                             <td>{$row['literarni_druh']}</td>
                             <td><input type='checkbox' onchange='handleChange(this)' id='$book_id' checked></td>
                         </tr>
                     HTML;
                 }
-            } else {
-                $total = 0;
-                echo 'nemáte přečtené žádné tituly';
-            }
             ?>
         </table>
         
