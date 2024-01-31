@@ -13,6 +13,8 @@ let lit_types = {
     drama : document.getElementById('drama'),
 }
 
+// Proměnná autori je v index.php
+
 function get_duplicates() {
     const duplicates = [];
     for (let i = 0; i < autori.length; i++) {
@@ -22,22 +24,23 @@ function get_duplicates() {
           }
         }
     }
+    console.log('duplicates', duplicates)
 
     if (duplicates.length > 2) {
         duplicates.forEach((autor) => {
             let red_rows = document.querySelectorAll(`[data-author="${autor}"]`);
             red_rows.forEach((row) => {
             row.style.color = 'red';
-            change_status('Máte od jednoho autora více titulů!', author_condition)
+            change_status(author_condition)
             })
         })
     }
-    else if (duplicates.length < 2) {
+    else if (duplicates.length <= 2) {
         duplicates.forEach((autor) => {
             let red_rows = document.querySelectorAll(`[data-author="${autor}"]`);
             red_rows.forEach((row) => {
             row.style.color = 'black';
-            change_status('OK', author_condition)
+            change_status(author_condition, 'splněno')
             })
         })
     }
@@ -50,7 +53,7 @@ function handle_change(checkbox) {
     // xhttp.open('POST', 'add_to_db.php');
     // xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     // xhttp.send(params);
-    console.log('before', autori)
+    console.log('autori', 'before', autori)
     $.ajax({
         type: 'POST',
         url: 'add_to_db.php',
@@ -89,7 +92,7 @@ function handle_change(checkbox) {
         idx = autori.indexOf(my_author);
         if (idx != -1) autori.splice(idx, 1);
     }
-    console.log('after', autori)
+    console.log('autori', 'after', autori)
     get_duplicates()
    
 
@@ -97,14 +100,26 @@ function handle_change(checkbox) {
 
 
 let _status = document.getElementById('status') // Bez podtržídka to mění Window.status
-function change_status(status_message, offending_category) {
-    if (status_message === 'OK') {
-        _status.innerHTML = 'Nesplněno';
-        offending_category.style.color = 'white';
-        return
+function change_status(category, ...condition) {
+    for (const arg of condition) {
+        if (arg == 'splněno') {
+            console.log("NGIERG")
+        }
     }
-    _status.innerHTML = status_message;
-    offending_category.style.color = 'red';
+    messages = {
+        author_condition : 'Příliš titulů od jednoho autora!',
+        prose : 'Nedostatek prózy!',
+        poetry : 'Nedostatek poezie!',
+        drama : 'Nedostatek dramat!',
+        earlier_1800 : 'Nedostatek titulů z 18. století a dřív!',
+        earlier_1900 : 'Nedostatek titulů z 19. století!',
+        world : 'Nedostatek světových titulů!',
+        czech : 'Nedostatek českých titulů!',
+    }
+
+    _status.innerHTML = messages[category]
+    category.style.color = 'red'
+
 
 }
 
