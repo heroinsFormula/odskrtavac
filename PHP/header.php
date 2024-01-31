@@ -1,6 +1,4 @@
-<?php 
-require('connection.php');
-?>
+<?php require('connection.php'); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,23 +8,23 @@ require('connection.php');
     <meta name='author' content='Lukáš Ostrihoň'>
     <title>Odškrtávač</title>
     <link rel='stylesheet' type='text/css' media='screen' href='../CSS/main.css'>
-    <script src='https://code.jquery.com/jquery-3.7.1.min.js' integrity='sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=' crossorigin='anonymous'></script>
+    <script src='https://code.jquery.com/jquery-3.7.1.min.js'
+            integrity='sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo='
+            crossorigin='anonymous'></script>
     <script src='../JS/index.js' defer></script>
 </head>
 <body>
 <header>
     <ul>
         <li><a href='index.php'>seznam děl</a></li>
-        <li><a href=''>vlastní seznam</a></li>
         <li><a href=''>vygenerovat studentský dokument</a></li>
         <li>
             <div id='login_wrap'>
             <?php
-            if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+            if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
                 echo <<<HTML
-                    <a>Vítejte uživateli {$_SESSION['userName']}</a>
+                    <a>Vítejte uživateli {$_SESSION['user_name']}</a>
                     <a href='logout.php'>odhlásit se</a>
-                    <!-- <input type='color' value='#dedede' onchange='colorChange(this)'> -->
                 HTML;
             } else {
                 echo <<<HTML
@@ -38,4 +36,4 @@ require('connection.php');
             </div>
         </li>
     </ul>
-</header>        
+</header>

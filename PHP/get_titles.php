@@ -1,4 +1,1 @@
-<?php
-require('functions.php');
-
-?>
+<?php require('functions.php'); ?>
