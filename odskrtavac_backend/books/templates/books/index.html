@@ -1,0 +1,27 @@
+{% extends 'books/base.html' %}
+
+{% block content %}
+    <table>
+        <thead>
+            <tr>
+                <th><a href="?order_by=author">Autor</th> 
+                <th>Jméno knihy</th>
+                <th>Rok vydání</th>
+                <th>Země původu</th>
+                <th>Literární druh</th>
+                <th></th>    
+            </tr>
+        </thead>
+    <tbody>
+    {% for book in books_list %}
+    <tr> 
+        <td><a href="{% url 'books:author_detail' book.author.slug  %}">{{ book.author }}</a></td>
+        <td><a href="{% url 'books:book_detail' book.slug %}">{{ book.name }}</a></td>
+        <td>{{ book.publish_year }}</td>
+        <td>{{ book.author.country }}</td>
+        <td></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+{% endblock %}
