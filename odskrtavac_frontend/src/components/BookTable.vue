@@ -1,4 +1,9 @@
 <template>
+	<ul>
+		<li v-for="(value, key) in criteria" :key="key">
+			{{ key }}: {{ value }}
+		</li>
+	</ul>
 	<main>       
 		<table>
 			<thead>
@@ -19,7 +24,6 @@
 					<td>{{ book.author.country }}</td>
 					<td>{{ book.literary_type }}</td>
 					<td>
-						<!-- Manually set the checkbox checked state -->
 						<input type="checkbox" :checked="book.is_read_by_user" @change="toggleReadStatus(book.slug, $event)" />
 					</td>
 				</tr>
@@ -34,6 +38,7 @@ import { ref, onMounted } from 'vue';
 export default {
 	setup() {
 		const books = ref([]);
+		const criteria = ref({});
 		const token = localStorage.getItem('access_token');
 
         const headers = {
@@ -48,14 +53,13 @@ export default {
             });
 		};
 
-		// Toggle the read status on the backend
 		const toggleReadStatus = async (slug, event) => {
 			const isChecked = event.target.checked;
 
 
 			if (!token) {
 				alert('You must be logged in to change the read status.');
-				event.target.checked = !isChecked;  // Revert the checkbox
+				event.target.checked = !isChecked;
 				return;
 			}
 
@@ -74,7 +78,9 @@ export default {
 				}
 
 				const result = await response.json();
-				console.log('Updated read status:', result);
+				console.log('Updated read status:', result.criteria);
+
+				criteria.value = result.criteria
 
 				// Optionally update the `books` state
 				const book = books.value.find((b) => b.slug === slug);
@@ -92,6 +98,7 @@ export default {
 
 		return {
 			books,
+			criteria,
 			toggleReadStatus
 		};
 	}
