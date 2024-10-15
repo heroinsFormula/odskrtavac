@@ -8,18 +8,9 @@ from django.contrib.auth.models import User
 
 class BookTestCase(APITestCase):
     def setUp(self):
-        self.author1 = Author.objects.create(full_name="John Doe", country="GB")
-        self.author2 = Author.objects.create(country="CZ")
-        Book.objects.create(name='můj kemp', author=self.author1, publish_year=0)
-        Book.objects.create(name='1', author=self.author1, publish_year=0)
-        Book.objects.create(name='2', author=self.author1, publish_year=0)
-        Book.objects.create(name='3', author=self.author1, publish_year=0)
-
         User.objects.create_user(username='test_user', password='password123')
-
-
-
-
+        self.author = Author.objects.create(full_name='name', country='CZ')
+        Book.objects.create(name='můj kemp', slug='muj-kemp', author=self.author, publish_year=0)
 
     def login_user(self, username='test_user', password='password123'):
         url = reverse('user_api:login')
@@ -35,8 +26,20 @@ class BookTestCase(APITestCase):
         response = self.client.post(url, format='json')
         response = response.json()
         return response
+    
 
 
+    def test_get_all_books(self):
+        url = reverse('books:get_books')
+        response = self.client.get(url)
+        self.assertEqual(response.data[0]['name'], 'můj kemp')
 
+    def test_mark_book(self):
+        read_status = self.mark_book().get('read')
+        self.assertEqual(read_status, True)
+        read_status = self.mark_book().get('read')
+        self.assertEqual(read_status, False)
 
-
+    def test_mark_nonexistant_book(self):
+        response = self.mark_book(slug='blbost').get('error')
+        self.assertEqual(response, 'Kniha nebyla nalezena')
