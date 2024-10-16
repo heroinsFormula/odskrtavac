@@ -13,3 +13,8 @@ def mark_book(self, slug):
     url = reverse('books:toggle_read_status', kwargs={'slug': slug})
     response = self.client.post(url).json()
     return response
+
+def get_user_criteria(self):
+    url = reverse('books:get_user_criteria')
+    response = self.client.get(url).json()
+    return response
