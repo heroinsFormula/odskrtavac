@@ -1,0 +1,175 @@
+[
+    {
+      "model": "books.author",
+      "pk": 1,
+      "fields": {
+        "full_name": "Nečeský autor",
+        "alt_name": "",
+        "country": "GB",
+        "description": "",
+        "slug": "john-doe"
+      }
+    },
+    {
+        "model": "books.author",
+        "pk": 2,
+        "fields": {
+          "full_name": "Český autor",
+          "alt_name": "",
+          "country": "CZ",
+          "description": "",
+          "slug": "jan-novak"
+        }
+    },
+    {
+        "model": "books.author",
+        "pk": 3,
+        "fields": {
+          "full_name": "John Doe",
+          "alt_name": "",
+          "country": "CZ",
+          "description": "",
+          "slug": "john-doe"
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 1,
+        "fields": {
+          "author": 1,
+          "name": "test_18stol",
+          "description": "",
+          "publish_year": 1800,
+          "literary_type": "message",
+          "literary_genre": "",
+          "slug": "test_18stol",
+          "read_by": []
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 2,
+        "fields": {
+          "author": 1,
+          "name": "test_19stol",
+          "description": "",
+          "publish_year": 1900,
+          "literary_type": "message",
+          "literary_genre": "",
+          "slug": "test_19stol",
+          "read_by": []
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 3,
+        "fields": {
+          "author": 1,
+          "name": "test_20a21_svet",
+          "description": "",
+          "publish_year": 1901,
+          "literary_type": "message",
+          "literary_genre": "",
+          "slug": "test_20a21_svet",
+          "read_by": []
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 4,
+        "fields": {
+          "author": 2,
+          "name": "test_20a21_cesko",
+          "description": "",
+          "publish_year": 1901,
+          "literary_type": "message",
+          "literary_genre": "",
+          "slug": "test_20a21_cesko",
+          "read_by": []
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 5,
+        "fields": {
+          "author": 1,
+          "name": "test_proza",
+          "description": "",
+          "publish_year": 0,
+          "literary_type": "Próza",
+          "literary_genre": "",
+          "slug": "test_proza",
+          "read_by": []
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 6,
+        "fields": {
+          "author": 1,
+          "name": "test_poezie",
+          "description": "",
+          "publish_year": 0,
+          "literary_type": "Poezie",
+          "literary_genre": "",
+          "slug": "test_poezie",
+          "read_by": []
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 7,
+        "fields": {
+          "author": 1,
+          "name": "test_drama",
+          "description": "",
+          "publish_year": 0,
+          "literary_type": "Drama",
+          "literary_genre": "",
+          "slug": "test_drama",
+          "read_by": []
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 8,
+        "fields": {
+          "author": 3,
+          "name": "test_1",
+          "description": "",
+          "publish_year": 0,
+          "literary_type": "",
+          "literary_genre": "",
+          "slug": "test_1",
+          "read_by": []
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 9,
+        "fields": {
+          "author": 3,
+          "name": "test_2",
+          "description": "",
+          "publish_year": 0,
+          "literary_type": "",
+          "literary_genre": "",
+          "slug": "test_2",
+          "read_by": []
+        }
+    },
+    {
+        "model": "books.book",
+        "pk": 10,
+        "fields": {
+          "author": 3,
+          "name": "test_3",
+          "description": "",
+          "publish_year": 0,
+          "literary_type": "",
+          "literary_genre": "",
+          "slug": "test_3",
+          "read_by": []
+        }
+    }
+]

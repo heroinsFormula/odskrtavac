@@ -1,4 +1,9 @@
 <template>
+	<ul>
+		<li v-for="(value, key) in criteria" :key="key">
+			{{ key }}: {{ value }}
+		</li>
+	</ul>
 	<main>       
 		<table>
 			<thead>
@@ -19,7 +24,6 @@
 					<td>{{ book.author.country }}</td>
 					<td>{{ book.literary_type }}</td>
 					<td>
-						<!-- Manually set the checkbox checked state -->
 						<input type="checkbox" :checked="book.is_read_by_user" @change="toggleReadStatus(book.slug, $event)" />
 					</td>
 				</tr>
@@ -34,6 +38,7 @@ import { ref, onMounted } from 'vue';
 export default {
 	setup() {
 		const books = ref([]);
+		const criteria = ref({});
 		const token = localStorage.getItem('access_token');
 
         const headers = {
@@ -48,14 +53,22 @@ export default {
             });
 		};
 
-		// Toggle the read status on the backend
+		const fetchUserCriteria = async () => {
+			fetch('http://127.0.0.1:8000/book_api/get_user_criteria/', { headers })
+            .then(response => response.json())
+            .then(data => criteria.value = data)
+            .catch(function (error) {
+                console.log(error)
+            });
+		};
+
 		const toggleReadStatus = async (slug, event) => {
 			const isChecked = event.target.checked;
 
 
 			if (!token) {
 				alert('You must be logged in to change the read status.');
-				event.target.checked = !isChecked;  // Revert the checkbox
+				event.target.checked = !isChecked;
 				return;
 			}
 
@@ -72,26 +85,29 @@ export default {
 				if (!response.ok) {
 					throw new Error('Failed to update read status');
 				}
+				
+				fetchUserCriteria();
 
-				const result = await response.json();
-				console.log('Updated read status:', result);
 
-				// Optionally update the `books` state
 				const book = books.value.find((b) => b.slug === slug);
 				if (book) {
-					book.is_read_by_user = isChecked;  // Update the local state for the book
+					book.is_read_by_user = isChecked;
 				}
 
 			} catch (error) {
 				console.error('Error updating read status:', error);
-				event.target.checked = !isChecked;  // Revert the checkbox state in case of error
+				event.target.checked = !isChecked;
 			}
 		};
 
-		onMounted(fetchBooks);
+		onMounted(() => {
+			fetchBooks();
+			fetchUserCriteria();
+		});
 
 		return {
 			books,
+			criteria,
 			toggleReadStatus
 		};
 	}

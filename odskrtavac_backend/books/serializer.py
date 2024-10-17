@@ -18,6 +18,5 @@ class BookSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         if request and request.user.is_authenticated:
             is_read = obj.read_by.filter(id=request.user.id).exists()
-            print(f'User: {request.user.id}, Book: {obj.slug}, Is Read: {is_read}')  # Debug output
             return is_read
         return False

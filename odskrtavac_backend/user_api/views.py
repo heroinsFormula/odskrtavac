@@ -15,15 +15,25 @@ class RegisterView(APIView):
         username = request.data.get('username')
         password = request.data.get('password')
         
-        if not username or not password:
-            return Response({"error": "Uživatelské jméno a heslo jsou povinné!"}, status=status.HTTP_400_BAD_REQUEST)
+        if not username:
+            return Response({"message": "Uživatelské jméno je povinné!",
+                             "error": "no username"},
+                            status=status.HTTP_400_BAD_REQUEST)
+        
+        elif not password:
+            return Response({"message": "Heslo je povinné!",
+                             "error": "no password"},
+                            status=status.HTTP_400_BAD_REQUEST)
+        
 
         elif User.objects.filter(username=username).exists():
-            return Response({"error": "Uživatelské jméno už existuje!"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"message": "Uživatelské jméno už existuje!",
+                             "error": "username exists"},
+                            status=status.HTTP_400_BAD_REQUEST)
                         
-        else: 
-            User.objects.create(username=username, password=make_password(password))
-            return Response({"message": "Účet vytvořen!"}, status=status.HTTP_201_CREATED)
+        User.objects.create(username=username,password=make_password(password))
+        return Response({"message": "Účet vytvořen!"}, 
+                        status=status.HTTP_201_CREATED)
         
 
 class CustomTokenObtainPairView(TokenObtainPairView):
