@@ -53,6 +53,15 @@ export default {
             });
 		};
 
+		const fetchUserCriteria = async () => {
+			fetch('http://127.0.0.1:8000/book_api/get_user_criteria/', { headers })
+            .then(response => response.json())
+            .then(data => criteria.value = data)
+            .catch(function (error) {
+                console.log(error)
+            });
+		};
+
 		const toggleReadStatus = async (slug, event) => {
 			const isChecked = event.target.checked;
 
@@ -76,25 +85,25 @@ export default {
 				if (!response.ok) {
 					throw new Error('Failed to update read status');
 				}
+				
+				fetchUserCriteria();
 
-				const result = await response.json();
-				console.log('Updated read status:', result.criteria);
 
-				criteria.value = result.criteria
-
-				// Optionally update the `books` state
 				const book = books.value.find((b) => b.slug === slug);
 				if (book) {
-					book.is_read_by_user = isChecked;  // Update the local state for the book
+					book.is_read_by_user = isChecked;
 				}
 
 			} catch (error) {
 				console.error('Error updating read status:', error);
-				event.target.checked = !isChecked;  // Revert the checkbox state in case of error
+				event.target.checked = !isChecked;
 			}
 		};
 
-		onMounted(fetchBooks);
+		onMounted(() => {
+			fetchBooks();
+			fetchUserCriteria();
+		});
 
 		return {
 			books,

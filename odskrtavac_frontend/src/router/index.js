@@ -6,7 +6,7 @@ import NotFound from '/src/components/views/NotFound.vue';
 const routes = [
   {
     path: '/dashboard',
-    name: 'Dashboard',
+    name: 'dashboard',
     component: Dashboard,
   },
   {
