@@ -1,32 +1,40 @@
 <template>
   <div>
-    <h2>Logout</h2>
     <button @click="logout">Logout</button>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+import { useRouter } from 'vue-router';
+
 export default {
-  methods: {
-    async logout() {
+  name: 'LogoutComponent',
+  setup() {
+    const router = useRouter();
+
+    const logout = async () => {
       try {
-        const csrfToken = this.$getCookie('csrftoken'); 
-        const response = await fetch("http://localhost:8000/user_api/logout/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            'X-CSRFToken': csrfToken,
-          },
-          credentials: "include", // Important for session cookies
-        });
-        if (response.ok) {
-          console.log("Logout successful");
-          // Redirect or clear session info
+        const refresh_token = localStorage.getItem('refresh_token');
+        
+        if (!refresh_token) {
+          return;
         }
+
+        await axios.post('http://localhost:8000/user_api/logout/', { refresh_token });
+        
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        
+        router.push('/login');
       } catch (error) {
-        console.error("Error:", error);
+        console.error('Logout failed', error);
       }
-    },
-  },
+    };
+
+    return {
+      logout
+    };
+  }
 };
 </script>

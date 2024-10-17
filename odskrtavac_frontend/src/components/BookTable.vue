@@ -4,6 +4,7 @@
 			{{ key }}: {{ value }}
 		</li>
 	</ul>
+	<NavBar></NavBar>
 	<main>       
 		<table>
 			<thead>
@@ -33,9 +34,13 @@
 </template>
 
 <script>
+import NavBar from '/src/components/NavBar.vue';
 import { ref, onMounted } from 'vue';
 
 export default {
+	components: {
+		NavBar
+	},
 	setup() {
 		const books = ref([]);
 		const criteria = ref({});
