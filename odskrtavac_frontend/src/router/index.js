@@ -11,7 +11,7 @@ const routes = [
   },
   {
     path: '/login',
-    name: 'Login',
+    name: 'login',
     component: AuthForm
   },
   {
@@ -26,12 +26,12 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = localStorage.getItem('auth'); // Check for auth in localStorage or another auth source
+  const isAuthenticated = localStorage.getItem('auth');
 
   if (to.meta.requiresAuth && !isAuthenticated) {
-    next('/login'); // Redirect to login if not authenticated
+    next('/login');
   } else {
-    next(); // Otherwise, proceed to the route
+    next();
   }
 });
 

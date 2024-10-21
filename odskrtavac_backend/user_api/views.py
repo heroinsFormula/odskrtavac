@@ -36,9 +36,6 @@ class RegisterView(APIView):
                         status=status.HTTP_201_CREATED)
         
 
-class CustomTokenObtainPairView(TokenObtainPairView):
-    permission_classes = [AllowAny]
-
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
 

@@ -21,7 +21,7 @@ export default {
           return;
         }
 
-        await axios.post('http://localhost:8000/user_api/logout/', { refresh_token });
+        await axios.post('http://localhost:8000/user-api/logout/', { refresh_token });
         
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
