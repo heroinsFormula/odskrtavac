@@ -35,15 +35,17 @@ def get_books(request):
     if literary_type_filters:
         books = books.filter(literary_type_filters)
 
-    if country:
-        books = books.filter(author__country__iexact=country)
+    if country == "czech":
+        books = books.filter(author__country__iexact='CZ')
+    elif country == "world":
+        books = books.exclude(author__country__iexact='CZ')
 
     if century == '18th and prior':
-        books = books.filter(publish_year__lte=1800)
+        books = books.filter(publish_year__lt=1800)
     elif century == '19th-20th':
         books = books.filter(publish_year__gte=1801, publish_year__lte=1901)
     elif century == '20th-21st':
-        books = books.filter(publish_year__gte=1901)
+        books = books.filter(publish_year__gt=1901)
 
     serializer = BookSerializer(books, many=True, context={'request': request})
     return Response(serializer.data)

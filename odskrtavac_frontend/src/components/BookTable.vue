@@ -5,7 +5,7 @@
 
         <main>
             <form>
-                <input v-model="filters.name" placeholder="Search by name" />
+                <input v-model="filters.name" placeholder="Hledat titul" />
 
                 <label>
                     <input type="checkbox" v-model="filters.poetry" /> Poetry
@@ -17,19 +17,21 @@
                     <input type="checkbox" v-model="filters.drama" /> Drama
                 </label>
 
-                <input v-model="filters.country" placeholder="Country" />
+                <select v-model="filters.country" id="country">
+                    <option value="">Původ</option>>
+                    <option value="czech">Česká literatura</option>
+                    <option value="world">Světová literatura</option>
+                </select>
 
-                <label for="century">Century</label>
                 <select v-model="filters.century" id="century">
-                    <option value="">Select Century</option>
-                    <option value="18th and prior">18th century and prior</option>
-                    <option value="19th-20th">19th-20th century</option>
-                    <option value="20th-21st">20th-21st century</option>
+                    <option value="">Století</option>
+                    <option value="18th and prior">18. století a dřív</option>
+                    <option value="19th-20th">19. století</option>
+                    <option value="20th-21st">20. a 21. století</option>
                 </select>
             </form>
 
             <div v-if="books.length">
-                <h3>Search Results</h3>
                 <table>
                     <thead>
                         <tr>
@@ -141,5 +143,4 @@ export default {
 </script>
 
 <style scoped>
-/* Add your styles here */
 </style>
