@@ -1,13 +1,8 @@
 <template>
     <div>
+        <UserCriteria></UserCriteria>
         <NavBar></NavBar>
-        
-        <ul>
-            <li v-for="(value, key) in criteria" :key="key">
-                {{ key }}: {{ value }}
-            </li>
-        </ul>
-        
+
         <main>
             <form>
                 <input v-model="filters.name" placeholder="Search by name" />
@@ -66,12 +61,14 @@
 
 <script>
 import NavBar from '/src/components/NavBar.vue';
+import UserCriteria from '/src/components/UserCriteria.vue';
 import { ref, onMounted, watch } from 'vue';
-import axios from '../api/axios'; // Import Axios
+import axios from 'axios';
 
 export default {
     components: {
-        NavBar
+    NavBar,
+    UserCriteria,
     },
     setup() {
         const filters = ref({
@@ -84,10 +81,10 @@ export default {
         });
 
         const books = ref([]);
-        const criteria = ref({});
 
         const fetchBooks = async () => {
             try {
+                const accessToken = localStorage.getItem('access_token');
                 const params = new URLSearchParams({
                     name: filters.value.name,
                     poetry: filters.value.poetry ? 'true' : '',
@@ -97,22 +94,16 @@ export default {
                     century: filters.value.century
                 });
 
-                const response = await axios.get(`http://127.0.0.1:8000/book-api/get-books/`, { 
-                    params // Axios will automatically serialize the params
+                const response = await axios.get('book-api/get-books/', {
+                    params,
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
                 });
 
-                books.value = response.data; // Axios automatically parses JSON
+                books.value = response.data;
             } catch (error) {
                 console.error('Error fetching books:', error);
-            }
-        };
-
-        const fetchUserCriteria = async () => {
-            try {
-                const response = await axios.get('http://127.0.0.1:8000/book-api/get-user-criteria/');
-                criteria.value = response.data; // Axios automatically parses JSON
-            } catch (error) {
-                console.error('Error fetching user criteria:', error);
             }
         };
 
@@ -120,8 +111,7 @@ export default {
             const isChecked = event.target.checked;
 
             try {
-                await axios.post(`http://127.0.0.1:8000/book-api/book/${slug}/mark-read`, 
-                { read: isChecked });
+                await axios.post(`book-api/book/${slug}/mark-read`, { read: isChecked }, {});
 
                 const book = books.value.find((b) => b.slug === slug);
                 if (book) {
@@ -129,17 +119,14 @@ export default {
                 }
             } catch (error) {
                 console.error('Error updating read status:', error);
-                event.target.checked = !isChecked; // Revert checkbox state on error
+                event.target.checked = !isChecked;
             }
         };
 
-        // Fetch all books and user criteria on mount
         onMounted(() => {
             fetchBooks();
-            fetchUserCriteria();
         });
 
-        // Watch for changes in filters and fetch books automatically
         watch(filters, (newFilters) => {
             fetchBooks();
         }, { deep: true });
@@ -147,7 +134,6 @@ export default {
         return {
             filters,
             books,
-            criteria,
             toggleReadStatus
         };
     }

@@ -8,11 +8,13 @@
     </form>
 </template>
   
-<script>import { ref } from 'vue';
-import axios from '../api/axios';
+<script>
+import { ref } from 'vue';
+import axios from 'axios';
 import { useRouter } from 'vue-router';
 
 export default {
+    name: 'Register',
     setup() {
         const router = useRouter();
         const username = ref('');
@@ -21,34 +23,16 @@ export default {
     
         async function register() {
             try {
-                const response = await axios.post('http://127.0.0.1:8000/user-api/register/', {
+                const response = await axios.post('user-api/register/', {
                     username: username.value,
                     password: password.value
                 });
-                
                 console.log(response);
-
-                if (response.status === 201 || response.status === 200) {
-                    const loginResponse = await axios.post('http://127.0.0.1:8000/user-api/login/', {
-                        username: username.value,
-                        password: password.value
-                    });
-
-                    console.log(loginResponse);
-
-                    localStorage.setItem('access_token', loginResponse.data.access);
-                    localStorage.setItem('refresh_token', loginResponse.data.refresh);
-
-                    router.push({ name: 'dashboard' });
-                } else {
-                    message.value = 'Nepodařilo se registrovat!';
-                }
             } catch (error) {
                 console.log(error);
                 message.value = 'Nepodařilo se registrovat!';
             }
         }
-        
         return {
             username,
             password,
