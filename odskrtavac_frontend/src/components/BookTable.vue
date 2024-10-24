@@ -1,76 +1,76 @@
 <template>
-    <div>
-        <UserCriteria></UserCriteria>
-        <NavBar></NavBar>
+<ul>
+    <li v-for="(value, key) in criteria" :key="key">
+        {{ key }}: {{ value }}
+    </li>
+</ul>
+<NavBar></NavBar>
 
-        <main>
-            <form>
-                <input v-model="filters.name" placeholder="Hledat titul" />
+<main>
+    <form>
+        <input v-model="filters.name" placeholder="Hledat titul nebo jméno autora" />
 
-                <label>
-                    <input type="checkbox" v-model="filters.poetry" /> Poetry
-                </label>
-                <label>
-                    <input type="checkbox" v-model="filters.prose" /> Prose
-                </label>
-                <label>
-                    <input type="checkbox" v-model="filters.drama" /> Drama
-                </label>
+        <label>
+            <input type="checkbox" v-model="filters.poetry" /> Poetry
+        </label>
+        <label>
+            <input type="checkbox" v-model="filters.prose" /> Prose
+        </label>
+        <label>
+            <input type="checkbox" v-model="filters.drama" /> Drama
+        </label>
 
-                <select v-model="filters.country" id="country">
-                    <option value="">Původ</option>>
-                    <option value="czech">Česká literatura</option>
-                    <option value="world">Světová literatura</option>
-                </select>
+        <select v-model="filters.country" id="country">
+            <option value="">Původ</option>>
+            <option value="czech">Česká literatura</option>
+            <option value="world">Světová literatura</option>
+        </select>
 
-                <select v-model="filters.century" id="century">
-                    <option value="">Století</option>
-                    <option value="18th and prior">18. století a dřív</option>
-                    <option value="19th-20th">19. století</option>
-                    <option value="20th-21st">20. a 21. století</option>
-                </select>
-            </form>
+        <select v-model="filters.century" id="century">
+            <option value="">Století</option>
+            <option value="18th and prior">18. století a dřív</option>
+            <option value="19th-20th">19. století</option>
+            <option value="20th-21st">20. a 21. století</option>
+        </select>
+    </form>
 
-            <div v-if="books.length">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Autor</th>
-                            <th>Název</th>
-                            <th>Rok vydání</th>
-                            <th>Původ</th>
-                            <th>Literární druh</th>
-                            <th>Přečteno</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(book, index) in books" :key="index" :id="book.slug">
-                            <td>{{ book.author.full_name }}</td>
-                            <td>{{ book.name }}</td>
-                            <td>{{ book.publish_year }}</td>
-                            <td>{{ book.author.country }}</td>
-                            <td>{{ book.literary_type }}</td>
-                            <td>
-                                <input type="checkbox" :checked="book.is_read_by_user" @change="toggleReadStatus(book.slug, $event)" />
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </main>
+    <div v-if="books.length">
+        <table>
+            <thead>
+                <tr>
+                    <th>Autor</th>
+                    <th>Název</th>
+                    <th>Rok vydání</th>
+                    <th>Původ</th>
+                    <th>Literární druh</th>
+                    <th>Přečteno</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(book, index) in books" :key="index" :id="book.slug">
+                    <td>{{ book.author.full_name }}</td>
+                    <td>{{ book.name }}</td>
+                    <td>{{ book.publish_year }}</td>
+                    <td>{{ book.author.country }}</td>
+                    <td>{{ book.literary_type }}</td>
+                    <td>
+                        <input type="checkbox" :checked="book.is_read_by_user" @change="toggleReadStatus(book.slug, $event)" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+</main>
 </template>
 
 <script>
 import NavBar from '/src/components/NavBar.vue';
-import UserCriteria from '/src/components/UserCriteria.vue';
 import { ref, onMounted, watch } from 'vue';
 import axios from 'axios';
 
 export default {
     components: {
     NavBar,
-    UserCriteria,
     },
     setup() {
         const filters = ref({
@@ -83,6 +83,7 @@ export default {
         });
 
         const books = ref([]);
+        const criteria = ref({});
 
         const fetchBooks = async () => {
             try {
@@ -109,6 +110,16 @@ export default {
             }
         };
 
+        const fetchUserCriteria = async () => {
+            try {
+                const response = await axios.get(
+                    'book-api/get-user-criteria/', {});
+                criteria.value = response.data;
+            } catch (error) {
+                console.error('Error fetching user criteria:', error);
+            }
+        };
+
         const toggleReadStatus = async (slug, event) => {
             const isChecked = event.target.checked;
 
@@ -119,6 +130,8 @@ export default {
                 if (book) {
                     book.is_read_by_user = isChecked;
                 }
+
+                fetchUserCriteria();
             } catch (error) {
                 console.error('Error updating read status:', error);
                 event.target.checked = !isChecked;
@@ -127,6 +140,7 @@ export default {
 
         onMounted(() => {
             fetchBooks();
+            fetchUserCriteria();
         });
 
         watch(filters, (newFilters) => {
@@ -136,7 +150,8 @@ export default {
         return {
             filters,
             books,
-            toggleReadStatus
+            toggleReadStatus,
+            criteria
         };
     }
 };

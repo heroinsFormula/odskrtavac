@@ -6,6 +6,14 @@ from books.serializer import BookSerializer
 from django.http import JsonResponse
 from .helper_functions import evaluate_book_criteria
 from django.db.models import Q
+import unicodedata
+
+
+# Slouží k normalizaci vstupů
+# Nebude rozdíl mezi "Čapek" a "capek"
+def remove_accents(input_str):
+    nfkd_form = unicodedata.normalize('NFKD', input_str).lower()
+    return ''.join([char for char in nfkd_form if not unicodedata.combining(char)])
 
 
 @api_view(['GET'])
@@ -21,7 +29,15 @@ def get_books(request):
     century = request.query_params.get('century', None)
 
     if name:
-        books = books.filter(name__icontains=name)
+        normalized_name = remove_accents(name)
+
+        books = [
+            book for book in books
+            if normalized_name in remove_accents(book.name) or
+               normalized_name in remove_accents(book.author.full_name)
+        ]
+
+
 
     literary_type_filters = Q()
 

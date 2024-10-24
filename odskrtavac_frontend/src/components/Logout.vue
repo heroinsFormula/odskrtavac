@@ -9,10 +9,10 @@ import axios from 'axios';
 import { useRouter } from 'vue-router';
 
 export default {
-  name: 'LogoutComponent',
+  name: 'Logout',
   setup() {
     const router = useRouter();
-    
+
     const logout = async () => {
       await axios.post('user-api/logout/', {}, {withCredentials: true});
 
