@@ -13,14 +13,16 @@ class UserTestCase(APITestCase):
         data = {'username': username, 'password': password}
         response = self.client.post(url, data, format='json')
         return response
-    
+
     def logout_user(self):
         response = self.login_user()
         access_token = response.data['access']
         refresh_token = response.data['refresh']
         url = reverse('user_api:logout')
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {access_token}')
-        response = self.client.post(url, {'refresh_token': refresh_token}, format='json')
+        response = self.client.post(url,
+                                    {'refresh_token': refresh_token},
+                                    format='json')
         return response
 
     def register_user(self, username, password='heslo'):
@@ -28,8 +30,6 @@ class UserTestCase(APITestCase):
         data = {'username': username, 'password': password}
         response = self.client.post(url, data, format='json')
         return response
-
-
 
     def test_login_user(self):
         response = self.login_user()
@@ -44,5 +44,3 @@ class UserTestCase(APITestCase):
     def test_logout_user(self):
         response = self.logout_user()
         self.assertEqual(response.status_code, status.HTTP_205_RESET_CONTENT)
-
-

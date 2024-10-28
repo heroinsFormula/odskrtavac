@@ -1,5 +1,6 @@
 from collections import Counter
 
+
 def evaluate_book_criteria(user):
     books = user.read_books.all()
     criteria = {
@@ -7,11 +8,11 @@ def evaluate_book_criteria(user):
         "Světová a česká 19. století": 0,
         "Světová 20. a 21. století": 0,
         "Česká 20. a 21. století": 0,
-        "Próza":0,
-        "Poezie":0,
-        "Drama":0,
+        "Próza": 0,
+        "Poezie": 0,
+        "Drama": 0,
         "Celkem": 0,
-        "Duplicitní autoři":[]
+        "Duplicitní autoři": []
     }
     authors = []
     criteria["Celkem"] = len(books)
