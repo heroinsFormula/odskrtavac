@@ -1,8 +1,14 @@
 <template>
 <ul>
-    <li v-for="(value, key) in criteria" :key="key">
-        {{ key }}: {{ value }}
-    </li>
+    <li>Světová a česká literatura do konce 18. století: {{ criteria["Světová a česká do 18. století"] }}/2</li>
+    <li>Světová a česká literatura 19. století: {{ criteria["Světová a česká 19. století"] }}/3</li>
+    <li>Světová literatura 20. a 21. století: {{ criteria["Světová 20. a 21. století"] }}/4</li>
+    <li>Česká literatura 20. a 21. století: {{ criteria["Česká 20. a 21. století"] }}/5</li>
+    <li>Próza: {{ criteria["Próza"] }}/2</li>
+    <li>Poezie: {{ criteria["Poezie"] }}/2</li>
+    <li>Drama: {{ criteria["Drama"] }}/2</li>
+    <li>Celkem: {{ criteria["Celkem"] }}/20</li>
+    <li>Duplicitní autoři: {{ criteria["Duplicitní autoři"] }}</li>
 </ul>
 <NavBar></NavBar>
 
@@ -21,7 +27,7 @@
         </label>
 
         <select v-model="filters.country" id="country">
-            <option value="">Původ</option>>
+            <option value="">Původ</option>
             <option value="czech">Česká literatura</option>
             <option value="world">Světová literatura</option>
         </select>

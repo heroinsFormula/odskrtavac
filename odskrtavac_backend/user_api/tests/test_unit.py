@@ -20,8 +20,6 @@ class UserTestCase(APITestCase):
         response = self.client.post(url, data, format='json')
         return response
 
-
-
     def test_registering_with_existing_username_not_possible(self):
         response = self.register_user('test_user')
         self.assertEqual(response.status_code,
@@ -38,17 +36,7 @@ class UserTestCase(APITestCase):
                                       password='sample_password')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-
     def test_logging_in_with_incorrect_username_not_possible(self):
         response = self.login_user(username='incorrect_username',
-                                    password='password123')
+                                   password='password123')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-
-    def test_logging_in_with_incorrect_username_not_possible(self):
-        response = self.login_user(username='test_user',
-                                   password='incorrect_password')
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-
-
-
-
