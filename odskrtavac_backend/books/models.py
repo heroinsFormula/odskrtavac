@@ -25,7 +25,8 @@ class Book(models.Model):
     country: str = CountryField()
     publish_year: int = models.SmallIntegerField()
     literary_type: str = models.CharField(max_length=255)
-    literary_genre: str = models.CharField(max_length=255, blank=True, null=True)
+    literary_genre: str = models.CharField(max_length=255,
+                                           blank=True, null=True)
     description: str = models.TextField(blank=True, null=True)
     author: int = models.ForeignKey(
         Author, on_delete=models.SET_NULL, blank=True, null=True
