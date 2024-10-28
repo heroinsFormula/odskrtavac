@@ -37,6 +37,7 @@
         "pk": 1,
         "fields": {
           "author": 1,
+          "country": "CZ",
           "name": "test_18stol",
           "description": "",
           "publish_year": 1800,
@@ -51,6 +52,7 @@
         "pk": 2,
         "fields": {
           "author": 1,
+          "country": "CZ",
           "name": "test_19stol",
           "description": "",
           "publish_year": 1900,
@@ -65,6 +67,7 @@
         "pk": 3,
         "fields": {
           "author": 1,
+          "country": "GB",
           "name": "test_20a21_svet",
           "description": "",
           "publish_year": 1901,
@@ -79,6 +82,7 @@
         "pk": 4,
         "fields": {
           "author": 2,
+          "country": "CZ",
           "name": "test_20a21_cesko",
           "description": "",
           "publish_year": 1901,
@@ -93,6 +97,7 @@
         "pk": 5,
         "fields": {
           "author": 1,
+          "country": "CZ",
           "name": "test_proza",
           "description": "",
           "publish_year": 0,
@@ -107,6 +112,7 @@
         "pk": 6,
         "fields": {
           "author": 1,
+          "country": "CZ",
           "name": "test_poezie",
           "description": "",
           "publish_year": 0,
@@ -121,6 +127,7 @@
         "pk": 7,
         "fields": {
           "author": 1,
+          "country": "CZ",
           "name": "test_drama",
           "description": "",
           "publish_year": 0,
@@ -135,6 +142,7 @@
         "pk": 8,
         "fields": {
           "author": 3,
+          "country": "CZ",
           "name": "test_1",
           "description": "",
           "publish_year": 0,
@@ -149,6 +157,7 @@
         "pk": 9,
         "fields": {
           "author": 3,
+          "country": "CZ",
           "name": "test_2",
           "description": "",
           "publish_year": 0,
@@ -163,6 +172,7 @@
         "pk": 10,
         "fields": {
           "author": 3,
+          "country": "CZ",
           "name": "test_3",
           "description": "",
           "publish_year": 0,
@@ -171,5 +181,19 @@
           "slug": "test_3",
           "read_by": []
         }
+    },
+    {
+      "model": "books.book",
+      "pk": 11,
+      "fields": {
+        "country": "CZ",
+        "name": "no_author",
+        "description": "",
+        "publish_year": 2000,
+        "literary_type": "",
+        "literary_genre": "",
+        "slug": "no_author",
+        "read_by": []
+      }
     }
 ]

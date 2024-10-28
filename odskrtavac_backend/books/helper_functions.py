@@ -19,10 +19,11 @@ def evaluate_book_criteria(user):
 
     for book in books:
         publish_year = book.publish_year
-        country = book.author.country
+        country = book.country
         literary_type = book.literary_type
 
-        authors.append(book.author)
+        if book.author is not None:
+            authors.append(book.author)
 
         match publish_year, country:
             case year, _ if year <= 1800:

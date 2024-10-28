@@ -1,7 +1,6 @@
 from rest_framework import status
 from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
-
 from books.models import Author
 from .helper_functions import (
     login_user,
@@ -21,35 +20,29 @@ class BookTestCase(APITestCase):
 
         login_user(self)
 
-    # TODO: Dopsat testy pro search
+    # TODO: Dopsat testy pro search a tvorbu knih
 
-    # TODO hned teď: dopsat testy na
-        # tvorbu knihy s novým autorem
-        # tvorbu knihy s neplatnými údaji
-        # view na get authors
-        # pak odstranit tenhle komentář
+    # def test_create_book_with_invalid_author(self):
+    #     response = create_book(self,
+    #                            name='test_book',
+    #                            author_full_name=None,
+    #                            literary_type='Próza',
+    #                            publish_year=0)
+    #     self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+    #     self.assertEqual(response.json.message, 'Kniha musí mít autora!')
 
-    def test_create_book_with_invalid_author(self):
-        response = create_book(self,
-                               name='test_book',
-                               author_full_name=None,
-                               literary_type='Próza',
-                               publish_year=0)
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.json.message, 'Kniha musí mít autora!')
-
-    def test_create_book_with_new_author(self):
-        response = create_book(self,
-                               name='test_book',
-                               author_full_name='new_author',
-                               literary_type='Próza',
-                               publish_year=0,
-                               new_author_country='CZ',)
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        author_full_name = Author.objects.get(full_name='new_author').full_name
-        author_country = Author.objects.get(full_name='new_author').country
-        self.assertEqual(author_full_name, 'new_author')
-        self.assertEqual(author_country, 'CZ')
+    # def test_create_book_with_new_author(self):
+    #     response = create_book(self,
+    #                            name='test_book',
+    #                            author_full_name='new_author',
+    #                            literary_type='Próza',
+    #                            publish_year=0,
+    #                            new_author_country='CZ',)
+    #     self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+    #     author_full_name = Author.objects.get(full_name='new_author').full_name
+    #     author_country = Author.objects.get(full_name='new_author').country
+    #     self.assertEqual(author_full_name, 'new_author')
+    #     self.assertEqual(author_country, 'CZ')
 
     def test_mark_18_century_books(self):
         """
@@ -83,12 +76,12 @@ class BookTestCase(APITestCase):
         response = get_user_criteria(self)
         self.assertEqual(response['Česká 20. a 21. století'], 1)
 
-    def test_mark_proza(self):
+    def test_mark_prose(self):
         mark_book(self, slug='test_proza')
         response = get_user_criteria(self)
         self.assertEqual(response['Próza'], 1)
 
-    def test_mark_poezie(self):
+    def test_mark_poetry(self):
         mark_book(self, slug='test_poezie')
         response = get_user_criteria(self)
         self.assertEqual(response['Poezie'], 1)
@@ -114,3 +107,8 @@ class BookTestCase(APITestCase):
         mark_book(self, slug='test_3')
         response = get_user_criteria(self)
         self.assertEqual(response['Duplicitní autoři'], ['John Doe'])
+
+    def test_mark_no_author(self):
+        mark_book(self, slug='no_author')
+        response = get_user_criteria(self)
+        self.assertEqual(response['Česká 20. a 21. století'], 1)

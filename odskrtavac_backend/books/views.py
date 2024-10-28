@@ -3,9 +3,9 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from books import helper_functions
 from books.models import Book, Author
 from books.serializer import BookSerializer, AuthorSerializer
-from books.helper_functions import evaluate_book_criteria
 from django.http import JsonResponse
 from django.db.models import Q
 
@@ -118,7 +118,7 @@ def post_book(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_user_criteria(request):
-    criteria = evaluate_book_criteria(request.user)
+    criteria = helper_functions.evaluate_book_criteria(request.user)
     return JsonResponse(criteria, status=200)
 
 
