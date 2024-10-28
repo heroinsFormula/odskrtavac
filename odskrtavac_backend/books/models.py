@@ -5,21 +5,14 @@ from django_countries.fields import CountryField
 
 
 class Author(models.Model):
-    full_name = models.CharField(
-        max_length=255, blank=True, null=True
-    )
-    alt_name = models.CharField(
-        max_length=255, blank=True, null=True
-    )
-    description = models.TextField(
-        default="", blank=True, null=True
-    )
-    slug = models.SlugField(
-        default="", blank=True
-    )
+    full_name: str = models.CharField(max_length=255)
+    slug: str = models.SlugField(default="")
+    country: str = CountryField()
+    alt_name: str = models.CharField(max_length=255, blank=True, null=True)
+    description: str = models.TextField(default="", blank=True, null=True)
 
-    def __str__(self) -> str:
-        return f"{self.full_name}" if self.full_name else "Neznámý autor"
+    def __str__(self):
+        return f"{self.full_name}"
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.full_name)
@@ -27,33 +20,25 @@ class Author(models.Model):
 
 
 class Book(models.Model):
-    name = models.CharField(max_length=255)
-    author = models.ForeignKey(
-        Author, on_delete=models.CASCADE, blank=True, null=True
+    name: str = models.CharField(max_length=255)
+    slug: str = models.SlugField(default="")
+    country: str = CountryField()
+    publish_year: int = models.SmallIntegerField()
+    literary_type: str = models.CharField(max_length=255)
+    literary_genre: str = models.CharField(max_length=255, blank=True, null=True)
+    description: str = models.TextField(blank=True, null=True)
+    author: int = models.ForeignKey(
+        Author, on_delete=models.SET_NULL, blank=True, null=True
     )
-    country = CountryField()
-    read_by = models.ManyToManyField(
-        User, related_name="read_books"
-    )
-    description = models.TextField(
-        blank=True, null=True
-    )
-    publish_year = models.SmallIntegerField(
-        blank=True, null=True
-    )
-    literary_type = models.CharField(
-        max_length=255
-    )
-    literary_genre = models.CharField(
-        max_length=255, blank=True, null=True
-    )
-    slug = models.SlugField(
-        default="", null=False, allow_unicode=True, blank=True
+    read_by: int = models.ManyToManyField(
+        User, related_name="read_books", blank=True
     )
 
-    def __str__(self) -> str:
+    def __str__(self):
         return f"{self.name}"
 
     def save(self, *args, **kwargs):
         self.slug = slugify(f"{self.name}")
+        if self.author is not None:
+            self.country = self.author.country
         super().save(*args, **kwargs)

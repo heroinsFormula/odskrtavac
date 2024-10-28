@@ -54,10 +54,10 @@
             </thead>
             <tbody>
                 <tr v-for="(book, index) in books" :key="index" :id="book.slug">
-                    <td>{{ book.author.full_name }}</td>
+                    <td>{{ book.author ? (book.author.alt_name || book.author.full_name) : "Neznámý" }}</td>
                     <td>{{ book.name }}</td>
                     <td>{{ book.publish_year }}</td>
-                    <td>{{ book.author.country }}</td>
+                    <td>{{ book.country }}</td>
                     <td>{{ book.literary_type }}</td>
                     <td>
                         <input type="checkbox" :checked="book.is_read_by_user" @change="toggleReadStatus(book.slug, $event)" />

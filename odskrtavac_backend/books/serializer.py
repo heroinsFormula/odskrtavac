@@ -7,7 +7,7 @@ class AuthorSerializer(serializers.ModelSerializer):
         model = Author
         fields = [
             'full_name',
-            'country',
+            'alt_name'
         ]
 
 
@@ -20,6 +20,7 @@ class BookSerializer(serializers.ModelSerializer):
         fields = [
             'name',
             'author',
+            'country',
             'publish_year',
             'literary_type',
             'slug',
