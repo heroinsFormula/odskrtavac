@@ -1,13 +1,9 @@
-from rest_framework import status
 from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
-from books.models import Author
 from .helper_functions import (
     login_user,
     mark_book,
-    get_user_criteria,
-    create_author,
-    create_book
+    get_user_criteria
 )
 
 
@@ -19,30 +15,6 @@ class BookTestCase(APITestCase):
                                  password='password123')
 
         login_user(self)
-
-    # TODO: Dopsat testy pro search a tvorbu knih
-
-    # def test_create_book_with_invalid_author(self):
-    #     response = create_book(self,
-    #                            name='test_book',
-    #                            author_full_name=None,
-    #                            literary_type='Próza',
-    #                            publish_year=0)
-    #     self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-    #     self.assertEqual(response.json.message, 'Kniha musí mít autora!')
-
-    # def test_create_book_with_new_author(self):
-    #     response = create_book(self,
-    #                            name='test_book',
-    #                            author_full_name='new_author',
-    #                            literary_type='Próza',
-    #                            publish_year=0,
-    #                            new_author_country='CZ',)
-    #     self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-    #     author_full_name = Author.objects.get(full_name='new_author').full_name
-    #     author_country = Author.objects.get(full_name='new_author').country
-    #     self.assertEqual(author_full_name, 'new_author')
-    #     self.assertEqual(author_country, 'CZ')
 
     def test_mark_18_century_books(self):
         """

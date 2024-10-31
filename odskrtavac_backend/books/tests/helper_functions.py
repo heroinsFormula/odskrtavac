@@ -32,20 +32,22 @@ def create_author(self, full_name: str, country: str):
     return response
 
 
-def create_book(self,
-                name: str,
-                author_full_name: str,
-                literary_type: str,
-                publish_year: int,
-                **kwargs):
+def create_book(
+        self,
+        name: str,
+        author_full_name: str,
+        country: str,
+        literary_type: str,
+        publish_year: int,
+        no_author: bool = False):
     url = reverse('books:post_book')
-
     data = {
         'name': name,
         'author_full_name': author_full_name,
-        'country': kwargs['new_author_country'],
+        'country': country,
         'literary_type': literary_type,
-        'publish_year': publish_year
+        'publish_year': publish_year,
+        'no_author': no_author
     }
     response = self.client.post(url, data, format='json')
     return response

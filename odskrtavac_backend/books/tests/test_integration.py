@@ -31,7 +31,11 @@ class BookTestCase(APITestCase):
         self.assertEqual(response.data[0]['name'], 'můj kemp')
 
     def test_create_author(self):
-        response = create_author(self, full_name='test_author_2', country='GB')
+        response = create_author(
+            self,
+            full_name='test_author_2',
+            country='GB'
+        )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Author.objects.last().full_name, 'test_author_2')
         self.assertEqual(Author.objects.last().country, 'GB')
@@ -40,7 +44,8 @@ class BookTestCase(APITestCase):
         response = create_book(
             self,
             name='test_book',
-            author='test_author_1',
+            author_full_name='test_author_1',
+            country='CZ',
             literary_type='Próza',
             publish_year=1234
         )

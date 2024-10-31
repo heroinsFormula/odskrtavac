@@ -26,44 +26,44 @@ def remove_accents(input_str):
 def get_books(request):
     books = Book.objects.all()
 
-    name = request.query_params.get('name', None)
-    poetry = request.query_params.get('poetry', None)
-    prose = request.query_params.get('prose', None)
-    drama = request.query_params.get('drama', None)
-    country = request.query_params.get('country', None)
-    century = request.query_params.get('century', None)
+    name_field = request.query_params.get('name', None)
+    poetry_field = request.query_params.get('poetry', None)
+    prose_field = request.query_params.get('prose', None)
+    drama_field = request.query_params.get('drama', None)
+    country_field = request.query_params.get('country', None)
+    century_field = request.query_params.get('century', None)
 
-    if name:
-        normalized_name = remove_accents(name)
-
+    if name_field:
+        normalized_name = remove_accents(name_field)
         books = [
             book for book in books
             if normalized_name in remove_accents(book.name) or
-            normalized_name in remove_accents(book.author.full_name)
-            ]
+            (book.author and normalized_name
+             in remove_accents(book.author.full_name))
+        ]
 
     literary_type_filters = Q()
 
-    if poetry == 'true':
+    if poetry_field == 'true':
         literary_type_filters |= Q(literary_type='Poezie')
-    if prose == 'true':
+    if prose_field == 'true':
         literary_type_filters |= Q(literary_type='Próza')
-    if drama == 'true':
+    if drama_field == 'true':
         literary_type_filters |= Q(literary_type='Drama')
 
     if literary_type_filters:
         books = books.filter(literary_type_filters)
 
-    if country == "czech":
+    if country_field == "czech":
         books = books.filter(author__country__iexact='CZ')
-    elif country == "world":
+    elif country_field == "world":
         books = books.exclude(author__country__iexact='CZ')
 
-    if century == '18th and prior':
+    if century_field == '18th and prior':
         books = books.filter(publish_year__lt=1800)
-    elif century == '19th-20th':
+    elif century_field == '19th-20th':
         books = books.filter(publish_year__gte=1801, publish_year__lte=1901)
-    elif century == '20th-21st':
+    elif century_field == '20th-21st':
         books = books.filter(publish_year__gt=1901)
 
     serializer = BookSerializer(books, many=True, context={'request': request})
@@ -82,37 +82,57 @@ def post_author(request):
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def post_book(request):
+    book_name = request.data.get('name')
+    publish_year = request.data.get('publish_year')
+    literary_type = request.data.get('literary_type')
     author_full_name = request.data.get('author_full_name')
+    country = request.data.get('country')
+    no_author: bool = request.data.get('no_author')
 
-    if not author_full_name:
+    if not country:
         return Response(
-            {"message": "Kniha musí mít autora!"},
+            {'message': 'Musí být vyplněna země!'},
             status=status.HTTP_400_BAD_REQUEST
         )
 
-    author, created = Author.objects.get_or_create(
-        full_name=author_full_name,
-        defaults={
-            'country': request.data.get('country'),
-        }
-    )
+    if no_author:
+        author = None
+    elif not author_full_name:
+        return Response(
+            {'message': 'Autorovi chybí jméno!'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    else:
+        author, _ = Author.objects.get_or_create(
+            full_name=author_full_name,
+            country=country
+        )
+
+    if Book.objects.filter(name=book_name, author=author).exists():
+        return Response(
+            {'message': 'Kniha s tímto názvem a autorem již existuje!'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
     book_data = {
-        'name': request.data.get('name'),
-        'publish_year': request.data.get('publish_year'),
-        'literary_type': request.data.get('literary_type'),
-        'author': author.id,
+        'name': book_name,
+        'publish_year': publish_year,
+        'literary_type': literary_type,
+        'country': country,
+        'author': author.id if author else None,
     }
 
     serializer = BookSerializer(data=book_data)
 
-    if not serializer.is_valid():
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    else:
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    serializer.is_valid()
+    serializer.save()
+    return Response(
+        {'message': 'Kniha byla vytvořena!',
+            'data': serializer.data},
+        status=status.HTTP_201_CREATED
+    )
 
 
 @api_view(['GET'])

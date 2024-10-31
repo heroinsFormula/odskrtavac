@@ -29,7 +29,8 @@ class RegisterView(APIView):
                              "error": "username exists"},
                             status=status.HTTP_400_BAD_REQUEST)
 
-        User.objects.create(username=username, password=make_password(password))
+        User.objects.create(username=username,
+                            password=make_password(password))
         return Response({"message": "Účet vytvořen!"},
                         status=status.HTTP_201_CREATED)
 
