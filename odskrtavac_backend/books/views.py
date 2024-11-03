@@ -44,6 +44,7 @@ def get_books(request):
 
     literary_type_filters = Q()
 
+    # Aby user mohl vyhledávat několik typů najednou
     if poetry_field == 'true':
         literary_type_filters |= Q(literary_type='Poezie')
     if prose_field == 'true':
