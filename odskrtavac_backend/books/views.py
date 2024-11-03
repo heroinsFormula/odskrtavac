@@ -61,9 +61,9 @@ def get_books(request):
         books = books.exclude(author__country__iexact='CZ')
 
     if century_field == '18th and prior':
-        books = books.filter(publish_year__lt=1800)
+        books = books.filter(publish_year__lte=1800)
     elif century_field == '19th-20th':
-        books = books.filter(publish_year__gte=1801, publish_year__lte=1901)
+        books = books.filter(publish_year__gte=1801, publish_year__lte=1900)
     elif century_field == '20th-21st':
         books = books.filter(publish_year__gt=1901)
 
