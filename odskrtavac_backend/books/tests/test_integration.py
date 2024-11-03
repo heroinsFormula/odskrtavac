@@ -20,16 +20,21 @@ class BookTestCase(BookAPITestCaseMixin):
             author=self.test_author,
             publish_year=0
         )
+        Book.objects.create(
+            name='test book',
+            slug='test-book',
+            author=self.test_author,
+            publish_year=0
+        )
 
         self.login_user()
 
-    # def test_get_all_books(self):
-    #     response = self.client.get(url)
-    #     self.assertEqual(response.data[0]['name'], 'můj kemp')
+    def test_get_all_books(self):
+        response = self.get_books()
+        self.assertEqual(response.data[0]['name'], 'můj kemp')
 
     def test_search_books(self):
-        response = get_books(
-            self,
+        response = self.get_books(
             name='test book'
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
