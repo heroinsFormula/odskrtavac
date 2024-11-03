@@ -44,25 +44,26 @@ def get_books(request):
 
     literary_type_filters = Q()
 
-    if poetry_field == 'true':
+    # Aby user mohl vyhledávat několik typů najednou
+    if poetry_field == 'True':
         literary_type_filters |= Q(literary_type='Poezie')
-    if prose_field == 'true':
+    if prose_field == 'True':
         literary_type_filters |= Q(literary_type='Próza')
-    if drama_field == 'true':
+    if drama_field == 'True':
         literary_type_filters |= Q(literary_type='Drama')
 
     if literary_type_filters:
         books = books.filter(literary_type_filters)
 
-    if country_field == "czech":
-        books = books.filter(author__country__iexact='CZ')
-    elif country_field == "world":
-        books = books.exclude(author__country__iexact='CZ')
+    if country_field == 'czech':
+        books = books.filter(country__iexact='CZ')
+    elif country_field == 'world':
+        books = books.exclude(country__iexact='CZ')
 
     if century_field == '18th and prior':
-        books = books.filter(publish_year__lt=1800)
-    elif century_field == '19th-20th':
-        books = books.filter(publish_year__gte=1801, publish_year__lte=1901)
+        books = books.filter(publish_year__lte=1800)
+    elif century_field == '19th':
+        books = books.filter(publish_year__gte=1801, publish_year__lte=1900)
     elif century_field == '20th-21st':
         books = books.filter(publish_year__gt=1901)
 

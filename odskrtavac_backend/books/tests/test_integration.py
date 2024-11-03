@@ -1,12 +1,10 @@
-from django.urls import reverse
 from django.contrib.auth.models import User
 from rest_framework import status
-from rest_framework.test import APITestCase
 from books.models import Author, Book
-from .helper_functions import login_user, mark_book, create_author, create_book
+from .mixins import BookAPITestCaseMixin
 
 
-class BookTestCase(APITestCase):
+class BookTestCase(BookAPITestCaseMixin):
     def setUp(self):
         User.objects.create_user(
             username='test_user',
@@ -22,17 +20,28 @@ class BookTestCase(APITestCase):
             author=self.test_author,
             publish_year=0
         )
+        Book.objects.create(
+            name='test book',
+            slug='test-book',
+            author=self.test_author,
+            publish_year=0
+        )
 
-        login_user(self)
+        self.login_user()
 
     def test_get_all_books(self):
-        url = reverse('books:get_books')
-        response = self.client.get(url)
+        response = self.get_books()
         self.assertEqual(response.data[0]['name'], 'můj kemp')
 
+    def test_search_books(self):
+        response = self.get_books(
+            name='test book'
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data[0]['name'], 'test book')
+
     def test_create_author(self):
-        response = create_author(
-            self,
+        response = self.create_author(
             full_name='test_author_2',
             country='GB'
         )
@@ -41,8 +50,7 @@ class BookTestCase(APITestCase):
         self.assertEqual(Author.objects.last().country, 'GB')
 
     def test_create_book(self):
-        response = create_book(
-            self,
+        response = self.create_book(
             name='test_book',
             author_full_name='test_author_1',
             country='CZ',
@@ -54,11 +62,11 @@ class BookTestCase(APITestCase):
         self.assertEqual(Book.objects.last().literary_type, 'Próza')
 
     def test_mark_book(self):
-        read_status = mark_book(self, slug='muj-kemp').get('is_read')
+        read_status = self.mark_book(slug='muj-kemp').get('is_read')
         self.assertEqual(read_status, True)
-        read_status = mark_book(self, slug='muj-kemp').get('is_read')
+        read_status = self.mark_book(slug='muj-kemp').get('is_read')
         self.assertEqual(read_status, False)
 
     def test_mark_nonexistent_book(self):
-        response = mark_book(self, slug='blbost').get('error')
+        response = self.mark_book(slug='blbost').get('error')
         self.assertEqual(response, 'Kniha nebyla nalezena')

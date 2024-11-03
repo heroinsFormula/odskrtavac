@@ -52,7 +52,7 @@
         "pk": 2,
         "fields": {
           "author": 1,
-          "country": "CZ",
+          "country": "GB",
           "name": "test_19stol",
           "description": "",
           "publish_year": 1900,
@@ -97,7 +97,7 @@
         "pk": 5,
         "fields": {
           "author": 1,
-          "country": "CZ",
+          "country": "GB",
           "name": "test_proza",
           "description": "",
           "publish_year": 0,
@@ -112,7 +112,7 @@
         "pk": 6,
         "fields": {
           "author": 1,
-          "country": "CZ",
+          "country": "GB",
           "name": "test_poezie",
           "description": "",
           "publish_year": 0,
@@ -127,7 +127,7 @@
         "pk": 7,
         "fields": {
           "author": 1,
-          "country": "CZ",
+          "country": "GB",
           "name": "test_drama",
           "description": "",
           "publish_year": 0,
