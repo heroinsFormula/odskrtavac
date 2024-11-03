@@ -1,27 +1,22 @@
 from rest_framework import status
-from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
 from books.models import Author, Book
-from .helper_functions import (
-    login_user,
-    create_book
-)
+from .mixins import BookAPITestCaseMixin
 
 
-class BookTestCase(APITestCase):
+class BookTestCase(BookAPITestCaseMixin):
     fixtures = ["books/tests/test_fixture.json"]
 
     def setUp(self):
-        User.objects.create_user(username='test_user',
-                                 password='password123')
+        User.objects.create_user(
+            username='test_user',
+            password='password123'
+        )
 
-        login_user(self)
-
-    # TODO: Dopsat testy pro search a tvorbu knih
+        self.login_user()
 
     def test_create_book_with_no_country(self):
-        response = create_book(
-            self,
+        response = self.create_book(
             name='test_book',
             author_full_name=None,
             literary_type='Próza',
@@ -32,8 +27,7 @@ class BookTestCase(APITestCase):
         self.assertEqual(response.data['message'], 'Musí být vyplněna země!')
 
     def test_create_book_with_blank_author(self):
-        response = create_book(
-            self,
+        response = self.create_book(
             name='test_book',
             author_full_name=None,
             literary_type='Próza',
@@ -44,8 +38,7 @@ class BookTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_create_book_with_author_unintentionally_left_blank(self):
-        response = create_book(
-            self,
+        response = self.create_book(
             name='test_book',
             author_full_name='',
             literary_type='Próza',
@@ -57,8 +50,7 @@ class BookTestCase(APITestCase):
         self.assertEqual(response.data['message'], 'Autorovi chybí jméno!')
 
     def test_create_book_with_new_author(self):
-        response = create_book(
-            self,
+        response = self.create_book(
             name='test_book',
             author_full_name='new_author',
             literary_type='Próza',
@@ -75,7 +67,7 @@ class BookTestCase(APITestCase):
         author = Author.objects.create(
             full_name='existing_author',
             country='CZ'
-            )
+        )
         Book.objects.create(
             name='existing_book',
             author=author,
@@ -83,8 +75,7 @@ class BookTestCase(APITestCase):
             publish_year=0,
             country='CZ'
         )
-        response = create_book(
-            self,
+        response = self.create_book(
             name='existing_book',
             author_full_name='existing_author',
             literary_type='Próza',
@@ -92,5 +83,7 @@ class BookTestCase(APITestCase):
             country='CZ'
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(response.data['message'],
-                         'Kniha s tímto názvem a autorem již existuje!')
+        self.assertEqual(
+            response.data['message'],
+            'Kniha s tímto názvem a autorem již existuje!'
+        )
