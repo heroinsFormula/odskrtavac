@@ -7,11 +7,11 @@
     <button type="submit">Registrovat se</button>
     </form>
 </template>
-  
+
 <script>
 import { ref } from 'vue';
-import axios from 'axios';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 
 export default {
     name: 'Register',
@@ -20,7 +20,7 @@ export default {
         const username = ref('');
         const password = ref('');
         const message = ref('');
-    
+
         async function register() {
             try {
                 const response = await axios.post('user-api/register/', {
@@ -42,4 +42,3 @@ export default {
     }
 }
 </script>
-  
