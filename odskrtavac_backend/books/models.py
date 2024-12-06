@@ -6,7 +6,7 @@ from django_countries.fields import CountryField
 
 class Author(models.Model):
     full_name: str = models.CharField(max_length=255)
-    slug: str = models.SlugField(default="")
+    slug: str = models.SlugField(default="", max_length=255)
     country: str = CountryField()
     alt_name: str = models.CharField(max_length=255, blank=True, null=True)
     description: str = models.TextField(default="", blank=True, null=True)

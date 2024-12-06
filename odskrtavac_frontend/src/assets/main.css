@@ -1,4 +1,5 @@
-@import './base.css';
+@import 'bootstrap/dist/css/bootstrap.css';
+@import 'pretty-checkbox/dist/pretty-checkbox.css';
 
 #app {
   max-width: 1280px;
