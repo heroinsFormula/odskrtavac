@@ -1,4 +1,4 @@
 <template>
-    Error 404
+    <h1>Churý je vůl!</h1>
 </template>
 
