@@ -1,6 +1,6 @@
 <template>
     <form @submit.prevent="login">
-        <h1>Přihlásit se</h1>
+        <h1>Chury je vůl!!</h1>
         <input v-model="username" type="text" placeholder="Jméno" required />
         <input v-model="password" type="password" placeholder="Heslo" required />
         <div ref="returnMessage">{{ message }}</div>
