@@ -1,4 +1,4 @@
 <template>
-    <h1>Churý je vůl!</h1>
+    <h1>Bureš je blp!</h1>
 </template>
 
