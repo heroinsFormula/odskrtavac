@@ -86,11 +86,11 @@ def post_author(request):
 @permission_classes([AllowAny])
 def post_book(request):
     book_name = request.data.get('name')
-    publish_year = request.data.get('publish_year')
-    literary_type = request.data.get('literary_type')
-    author_full_name = request.data.get('author_full_name')
+    publish_year = request.data.get('publishYear')
+    literary_type = request.data.get('literaryType')
+    author_full_name = request.data.get('authorFullName')
     country = request.data.get('country')
-    no_author: bool = request.data.get('no_author')
+    no_author: bool = request.data.get('noAuthor')
 
     if not country:
         return Response(
@@ -119,8 +119,8 @@ def post_book(request):
 
     book_data = {
         'name': book_name,
-        'publish_year': publish_year,
-        'literary_type': literary_type,
+        'publishYear': publish_year,
+        'literaryType': literary_type,
         'country': country,
         'author': author.id if author else None,
     }
@@ -151,11 +151,11 @@ def toggle_read_status(request, slug):
     except Book.DoesNotExist:
         return JsonResponse({'error': 'Kniha nebyla nalezena'}, status=404)
 
-    if request.user in book.read_by.all():
-        book.read_by.remove(request.user)
+    if request.user in book.readBy.all():
+        book.readBy.remove(request.user)
         read_status = False
-    elif request.user not in book.read_by.all():
-        book.read_by.add(request.user)
+    elif request.user not in book.readBy.all():
+        book.readBy.add(request.user)
         read_status = True
 
-    return JsonResponse({'slug': slug, 'is_read': read_status}, status=200)
+    return JsonResponse({'slug': slug, 'isRead': read_status}, status=200)

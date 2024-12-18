@@ -7,7 +7,7 @@
         <button type="submit">Přihlásit se</button>
     </form>
   </template>
-  
+
 <script>
 import { ref } from 'vue';
 import axios from 'axios';
@@ -29,9 +29,9 @@ export default {
                 }, {
                     withCredentials: true
                 });
-                
+
                 axios.defaults.headers.common['Authorization'] = `Bearer ${data.access}`;
-                localStorage.setItem('refresh_token', data.refresh);
+                localStorage.setItem('refreshToken', data.refresh);
 
                 router.push({ name: 'dashboard' });
             } catch (error) {
@@ -48,4 +48,3 @@ export default {
     }
     }
 </script>
-  

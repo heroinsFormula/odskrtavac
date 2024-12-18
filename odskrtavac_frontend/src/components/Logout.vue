@@ -17,7 +17,7 @@ export default {
       await axios.post('user-api/logout/', {}, {withCredentials: true});
 
       axios.defaults.headers.common['Authorization'] = '';
-      localStorage.removeItem('refresh_token');
+      localStorage.removeItem('refreshToken');
 
       await router.push('/login');
     }

@@ -2,7 +2,7 @@ from collections import Counter
 
 
 def evaluate_book_criteria(user):
-    books = user.read_books.all()
+    books = user.readBooks.all()
     criteria = {
         "Světová a česká do 18. století": 0,
         "Světová a česká 19. století": 0,
@@ -18,9 +18,9 @@ def evaluate_book_criteria(user):
     criteria["Celkem"] = len(books)
 
     for book in books:
-        publish_year = book.publish_year
+        publish_year = book.publishYear
         country = book.country
-        literary_type = book.literary_type
+        literary_type = book.literaryType
 
         if book.author is not None:
             authors.append(book.author)
@@ -46,6 +46,6 @@ def evaluate_book_criteria(user):
     count_authors = Counter(authors)
     for author, occurrences in count_authors.items():
         if occurrences > 2:
-            criteria["Duplicitní autoři"].append(author.full_name)
+            criteria["Duplicitní autoři"].append(author.fullName)
 
     return criteria

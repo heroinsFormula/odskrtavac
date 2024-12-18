@@ -8,7 +8,7 @@ axios.interceptors.response.use(resp => resp, async error => {
     if (error.response.status === 401 && !refresh) {
         refresh = true;
 
-        const oldRefreshToken = localStorage.getItem('refresh_token');
+        const oldRefreshToken = localStorage.getItem('refreshToken');
         try {
             const { status, data } = await axios.post('user-api/refresh-token/', {
                 refresh: oldRefreshToken
@@ -17,11 +17,11 @@ axios.interceptors.response.use(resp => resp, async error => {
             });
 
             if (status === 200) {
-                localStorage.setItem('access_token', data.access);
+                localStorage.setItem('accessToken', data.access);
                 axios.defaults.headers.common['Authorization'] = `Bearer ${data.access}`;
 
                 if (data.refresh) {
-                    localStorage.setItem('refresh_token', data.refresh);
+                    localStorage.setItem('refreshToken', data.refresh);
                 }
 
                 error.config.headers['Authorization'] = `Bearer ${data.access}`;

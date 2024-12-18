@@ -4,21 +4,21 @@ from .models import Book, Author
 
 class AuthorAdmin(admin.ModelAdmin):
     list_display = (
-        "full_name",
+        "fullName",
         "slug",
         "country",
-        "alt_name",
+        "altName",
         "id",
     )
 
 
 class BookAdmin(admin.ModelAdmin):
     list_display = (
-        "name",
+        "titleName",
         "slug",
         "country",
-        "literary_type",
-        "publish_year",
+        "literaryType",
+        "publishYear",
         "author",
         "id",
     )

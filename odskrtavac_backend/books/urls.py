@@ -11,7 +11,7 @@ app_name = "books"
 urlpatterns = [
     path("get-books/", get_books, name="get_books"),
     path(
-        "book/<slug:slug>/mark-read",
+        "mark-read/<slug:slug>/",
         toggle_read_status,
         name='toggle_read_status',
     ),

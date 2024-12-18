@@ -57,7 +57,7 @@ export default {
         },
         async submitForm() {
             try {
-                const accessToken = localStorage.getItem('access_token');
+                const accessToken = localStorage.getItem('accessToken');
                 await axios.post('book-api/add-book/', this.newBook, {
                     headers: {
                         'Authorization': `Bearer ${accessToken}`

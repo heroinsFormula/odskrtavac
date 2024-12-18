@@ -6,33 +6,34 @@ class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
         fields = [
-            'full_name',
-            'alt_name',
+            'fullName',
+            'altName',
             'country'
         ]
 
 
 class BookSerializer(serializers.ModelSerializer):
     author = AuthorSerializer(read_only=True)
-    is_read_by_user = serializers.SerializerMethodField()
+    isReadByUser: bool = serializers.SerializerMethodField()
 
     class Meta:
         model = Book
         fields = [
-            'name',
+            'id',
+            'titleName',
             'author',
             'country',
-            'publish_year',
-            'literary_type',
+            'publishYear',
+            'literaryType',
             'slug',
-            'is_read_by_user',
+            'isReadByUser',
         ]
 
-    def get_is_read_by_user(self, obj):
+    def get_isReadByUser(self, obj):
         request = self.context.get('request')
         if request and request.user.is_authenticated:
-            is_read = obj.read_by.filter(
+            isRead = obj.readBy.filter(
                 id=request.user.id
             ).exists()
-            return is_read
+            return isRead
         return False
