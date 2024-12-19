@@ -1,5 +1,5 @@
 <template>
-	<table class="w-100 table table-striped table-hover ">
+	<table class="w-100 table table-striped table-hover">
 		<thead>
 			<tr>
 				<th>Autor</th>
@@ -13,20 +13,14 @@
 		<tbody>
 			<tr>
 				<td colspan="100%" class="text-center">
-					<button class="btn btn-primary btn-block" @click="showPopout = true">+ Přidat knihu</button>
+					<button class="btn btn-primary btn-block" @click="showPopout = true">
+						+ Přidat knihu
+					</button>
 				</td>
 			</tr>
 			<book-table-row v-for="row in rows"
-				:key="row.id"
-				:author="row.author"
-				:titleName="row.titleName"
-				:publishYear="row.publishYear"
-				:country="row.country"
-				:literaryType="row.literaryType"
-				:isReadByUser="row.isReadByUser"
-				:slug="row.slug"
-			>
-			</book-table-row>
+			:key="row.id" :book="row"
+			/>
 		</tbody>
 	</table>
 </template>
@@ -42,12 +36,12 @@ export default {
 	data() {
 		return {
 			rows: [],
-		}
+		};
 	},
 	methods: {
-		async getBooks() {
+		getBooks() {
 			try {
-				const books = await bookService.getBooks();
+				const books = bookService.getBooks();
 				this.rows = books.data.map(book => ({
 					id: book.id,
 					author: book.author,
@@ -57,20 +51,23 @@ export default {
 					literaryType: book.literaryType,
 					isReadByUser: book.isReadByUser,
 					slug: book.slug,
-
 				}));
 			} catch (error) {
 				console.error('Error fetching files:', error);
 			}
 		},
-		async getUserCriteria() {
-			const criteria = await bookService.getUserCriteria();
-			console.log(criteria)
+		getUserCriteria() {
+			try {
+				const criteria = bookService.getUserCriteria();
+				console.log(criteria);
+			} catch (error) {
+				console.error('něco se zesralo', error);
+			}
 		}
 	},
 	mounted() {
-		this.getBooks(),
-		this.getUserCriteria()
+		this.getBooks();
+		this.getUserCriteria();
 	}
 };
 </script>

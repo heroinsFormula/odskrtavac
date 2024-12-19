@@ -4,7 +4,7 @@ from .views import (
     post_author,
     get_books,
     toggle_read_status,
-    get_user_criteria,
+    getUsersBooklistAttributes,
 )
 
 app_name = "books"
@@ -15,7 +15,7 @@ urlpatterns = [
         toggle_read_status,
         name='toggle_read_status',
     ),
-    path("get-user-criteria/", get_user_criteria, name='get_user_criteria'),
+    path("get-user-criteria/", getUsersBooklistAttributes, name='get_user_criteria'),
     path("post-book/", post_book, name="post_book"),
     path("post-author/", post_author, name="post_author"),
 ]

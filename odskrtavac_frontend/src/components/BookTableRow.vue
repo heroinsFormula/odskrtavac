@@ -1,34 +1,36 @@
 <template>
 	<tr>
 		<td>
-			{{ author ? (author.altName || author.fullName) : "Neznámý" }}
+			{{ book.author ? (book.author.altName || book.author.fullName) : "Neznámý" }}
 		</td>
 		<td>
-			{{ titleName }}
+			{{ book.titleName }}
 		</td>
 		<td>
-			{{ publishYear }}
+			{{ book.publishYear }}
 		</td>
 		<td>
-			{{ country }}
+			{{ book.country }}
 		</td>
 		<td>
-			{{ literaryType }}
+			{{ book.literaryType }}
 		</td>
 		<td class="text-center">
-			<book-table-mark-book-button :isReadByUser="isReadByUser" :slug="slug"></book-table-mark-book-button>
+			<book-table-mark-book-button
+				:isReadByUser="book.isReadByUser"
+				:slug="book.slug"
+			/>
 		</td>
 	</tr>
 </template>
 
 <script>
-import BookTableMarkBookButton from './BookTableMarkBookButton.vue';
+import BookTableMarkBookButton from './BookTableMarkBookCheckmark.vue';
 
 export default {
 	components: {
 		BookTableMarkBookButton
 	},
-	props: ["author", "titleName", "publishYear", "country", "literaryType", "isReadByUser", "slug"],
-
+	props: ["book"],
 };
 </script>

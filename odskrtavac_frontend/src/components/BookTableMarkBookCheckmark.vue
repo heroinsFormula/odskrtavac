@@ -18,11 +18,15 @@ import { bookService } from '@/api/bookService';
 
 export default {
 	props: ["isReadByUser", "slug"],
+
 	methods: {
 		markBook(slug) {
+			try {
 			const response = bookService.markBook(slug)
-			console.log(response)
+			} catch (error) {
+				console.error("error", error)
+			}
 		}
 	}
-}
+};
 </script>

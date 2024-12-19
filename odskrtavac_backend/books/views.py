@@ -98,7 +98,7 @@ def post_book(request):
             status=status.HTTP_400_BAD_REQUEST
         )
 
-    if no_author:
+    if no_author: #todo: přepsat, aby to handlovalo autora jako 'null'
         author = None
     elif not author_full_name:
         return Response(
@@ -138,7 +138,7 @@ def post_book(request):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def get_user_criteria(request):
+def getUsersBooklistAttributes(request):
     criteria = helper_functions.evaluate_book_criteria(request.user)
     return JsonResponse(criteria, status=200)
 
@@ -158,4 +158,4 @@ def toggle_read_status(request, slug):
         book.readBy.add(request.user)
         read_status = True
 
-    return JsonResponse({'slug': slug, 'isRead': read_status}, status=200)
+    return JsonResponse({'slug': slug, 'isRead': read_status}, status=200) # status=status.HTTP_200 lepší?
