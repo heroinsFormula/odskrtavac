@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const bookService = {
-  async getBooks() {
+  getBooks() {
     const accessToken = localStorage.getItem('accessToken');
     const params = new URLSearchParams({
       // name: filters.value.name,
@@ -12,7 +12,7 @@ export const bookService = {
       // century: filters.value.century
     });
 
-    const response = await axios.get('book-api/get-books/', {
+    const response = axios.get('book-api/get-books/', {
       params,
       headers: {
         'Authorization': `Bearer ${accessToken}`
@@ -21,9 +21,9 @@ export const bookService = {
     return response
   },
 
-  async postBook(newBook) { //todo: handle optional attributes (literary genre)
+  postBook(newBook) { //todo: handle optional attributes (literary genre)
     const accessToken = localStorage.getItem('accessToken');
-    const response = await axios.post(`book-api/post-book/`, {
+    const response = axios.post(`book-api/post-book/`, {
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }
@@ -31,9 +31,9 @@ export const bookService = {
     return response
   },
 
-  async markBook(slug) {
+  markBook(slug) {
       const accessToken = localStorage.getItem('accessToken');
-      const response = await axios.post(`book-api/mark-read/${slug}/`, {
+      const response = axios.post(`book-api/mark-read/${slug}/`, {
         headers: {
           'Authorization': `Bearer ${accessToken}`
         }
@@ -41,9 +41,9 @@ export const bookService = {
       return response
   },
 
-  async getBooklistAttributes() {
+  getBooklistAttributes() {
     const accessToken = localStorage.getItem('accessToken');
-    const response = await axios.get('book-api/get-user-criteria/', { //todo: rename on backend
+    const response = axios.get('book-api/get-user-criteria/', { //todo: rename on backend
       headers: {
         'Authorization': `Bearer ${accessToken}`
       }

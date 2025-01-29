@@ -1,17 +1,22 @@
-<script setup>
-import Logout from '/src/components/Logout.vue';
-</script>
-
 <template>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-    <a class="navbar-brand" href="#">sidebar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <Logout></Logout>
+  <header class="fixed top-0 left-0 w-screen bg-black text-white shadow-md z-50">
+    <div class="flex justify-between items-center max-w-screen-xl mx-auto px-4 h-16">
+      <h1 class="text-xl font-bold">My App</h1>
+      <nav>
+        <ul class="flex gap-6">
+          <li><a href="#home" class="hover:text-gray-300">Home</a></li>
+          <li><a href="#about" class="hover:text-gray-300">About</a></li>
+          <li><a href="#contact" class="hover:text-gray-300">Contact</a></li>
+        </ul>
+      </nav>
     </div>
-</nav>
+  </header>
 </template>
 
-<script></script>
+<script>
+export default {
+  name: "Navbar",
+};
+</script>
+
+<style scoped></style>

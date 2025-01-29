@@ -2,27 +2,27 @@ from django.contrib import admin
 from .models import Book, Author
 
 
-class AuthorAdmin(admin.ModelAdmin):
+class Author_admin(admin.ModelAdmin):
     list_display = (
-        "fullName",
+        "full_name",
         "slug",
         "country",
-        "altName",
+        "alt_name",
         "id",
     )
 
 
-class BookAdmin(admin.ModelAdmin):
+class Book_admin(admin.ModelAdmin):
     list_display = (
-        "titleName",
+        "title_name",
         "slug",
         "country",
-        "literaryType",
-        "publishYear",
+        "literary_type",
+        "publish_year",
         "author",
         "id",
     )
 
 
-admin.site.register(Book, BookAdmin)
-admin.site.register(Author, AuthorAdmin)
+admin.site.register(Book, Book_admin)
+admin.site.register(Author, Author_admin)

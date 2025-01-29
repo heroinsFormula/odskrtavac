@@ -1,5 +1,5 @@
 <template>
-	<table class="w-100 table table-striped table-hover">
+	<table class="w-4/5 table table-striped table-hover">
 		<thead>
 			<tr>
 				<th>Autor</th>
@@ -27,7 +27,7 @@
 
 <script>
 import BookTableRow from './BookTableRow.vue';
-import { bookService } from '@/api/bookService';
+import { useBookStore } from '@/stores/bookStore';
 
 export default {
 	components: {
@@ -39,10 +39,12 @@ export default {
 		};
 	},
 	methods: {
-		getBooks() {
+		async getBooks() {
 			try {
-				const books = bookService.getBooks();
-				this.rows = books.data.map(book => ({
+				const store = useBookStore();
+				const response = await store.getBooks();
+				const books = response.data
+				this.rows = books.map(book => ({
 					id: book.id,
 					author: book.author,
 					titleName: book.titleName,
@@ -55,19 +57,10 @@ export default {
 			} catch (error) {
 				console.error('Error fetching files:', error);
 			}
-		},
-		getUserCriteria() {
-			try {
-				const criteria = bookService.getUserCriteria();
-				console.log(criteria);
-			} catch (error) {
-				console.error('něco se zesralo', error);
-			}
 		}
 	},
 	mounted() {
-		this.getBooks();
-		this.getUserCriteria();
+		this.getBooks()
 	}
 };
 </script>

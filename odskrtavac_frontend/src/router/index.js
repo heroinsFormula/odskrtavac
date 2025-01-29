@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Dashboard from '/src/components/views/Dashboard.vue';
-import AuthForm from '/src/components/views/AuthForm.vue';
-import NotFound from '/src/components/views/NotFound.vue';
+import Dashboard from '/src/views/Dashboard.vue';
+import AuthForm from '/src/views/AuthForm.vue';
+import NotFound from '/src/views/NotFound.vue';
 
 const routes = [
   {
