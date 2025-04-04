@@ -2,9 +2,22 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_user_rights(request):
+    user = request.user
+    is_admin = False
+
+    if user.is_superuser or user.is_staff:
+        is_admin = True
+
+    return Response({"is_admin": is_admin})
 
 
 class RegisterView(APIView):
